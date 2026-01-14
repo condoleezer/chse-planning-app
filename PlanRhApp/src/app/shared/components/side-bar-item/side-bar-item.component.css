@@ -1,0 +1,32 @@
+:host-context(.role-cadre) a.bg-button,
+:host-context(.role-nurse) a.bg-button,
+:host-context(.role-sec) a.bg-button {
+	background-color: #1f77b4 !important;
+	color: #ffffff !important;
+}
+
+:host-context(.role-cadre) a:hover,
+:host-context(.role-nurse) a:hover,
+:host-context(.role-sec) a:hover {
+	background-color: #155d98 !important;
+	color: #ffffff !important;
+}
+
+/* Make the small left indicator match the blue when selected */
+:host-context(.role-cadre) a.text-white.bg-button > div,
+:host-context(.role-nurse) a.text-white.bg-button > div,
+:host-context(.role-sec) a.text-white.bg-button > div {
+	background-color: #1f77b4 !important;
+}
+
+/* Force icons to be white when the item has blue background (selected) or on hover */
+:host-context(.role-cadre) a.text-white.bg-button span,
+:host-context(.role-nurse) a.text-white.bg-button span,
+:host-context(.role-sec) a.text-white.bg-button span,
+:host-context(.role-cadre) a:hover span,
+:host-context(.role-nurse) a:hover span,
+:host-context(.role-sec) a:hover span {
+	color: #ffffff !important;
+}
+
+

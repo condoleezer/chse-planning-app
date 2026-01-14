@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "6851aeb4182b02da5b717e9c"
+  },
+  "user_id": "683d6a7e8b013c17b0e679e9",
+  "start_time": "09:00",
+  "contrat_type": "Temps plein",
+  "contrat_hour_week": "35",
+  "contrat_hour_day": "7",
+  "working_period": "Travail de jour",
+  "work_days": [],
+  "created_at": {
+    "$date": "2025-06-17T20:08:08.187Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-17T20:08:08.187Z"
+  }
+}]

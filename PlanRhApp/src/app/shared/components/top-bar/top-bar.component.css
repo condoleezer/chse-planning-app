@@ -1,0 +1,19 @@
+:host ::ng-deep .p-dialog {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Role-specific button colors inside the top bar */
+:host .role-cadre .bg-button {
+    background-color: #1f77b4; /* bleu cadre */
+}
+:host .role-cadre .bg-button:hover {
+    background-color: #155d98;
+}
+
+:host .role-nurse .bg-button {
+    background-color: #16a34a; /* vert nurse */
+}
+:host .role-nurse .bg-button:hover {
+    background-color: #0f8a3b;
+}

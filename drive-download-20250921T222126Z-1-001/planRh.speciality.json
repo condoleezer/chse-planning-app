@@ -1,0 +1,143 @@
+[{
+  "_id": {
+    "$oid": "6839ee4dda78f8862b14a6b6"
+  },
+  "name": "Infirmier",
+  "created_at": {
+    "$date": "2025-05-30T19:43:41.345Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:43:41.345Z"
+  },
+  "matricule": "COM129LQB"
+},
+{
+  "_id": {
+    "$oid": "6839ee5ada78f8862b14a6b7"
+  },
+  "name": "Aide soignante",
+  "created_at": {
+    "$date": "2025-05-30T19:43:54.908Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:43:54.908Z"
+  },
+  "matricule": "COM286APT"
+},
+{
+  "_id": {
+    "$oid": "6839ee66da78f8862b14a6b8"
+  },
+  "name": "Auxiliaire Puéricultrice",
+  "created_at": {
+    "$date": "2025-05-30T19:44:06.389Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:44:06.389Z"
+  },
+  "matricule": "COM799TBB"
+},
+{
+  "_id": {
+    "$oid": "6839ee76da78f8862b14a6b9"
+  },
+  "name": "Agent de liaison",
+  "created_at": {
+    "$date": "2025-05-30T19:44:22.881Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:44:22.881Z"
+  },
+  "matricule": "COM752YPA"
+},
+{
+  "_id": {
+    "$oid": "6839ee82da78f8862b14a6ba"
+  },
+  "name": "Administratif",
+  "created_at": {
+    "$date": "2025-05-30T19:44:34.996Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:44:34.996Z"
+  },
+  "matricule": "COM150FRE"
+},
+{
+  "_id": {
+    "$oid": "6839ee92da78f8862b14a6bb"
+  },
+  "name": "Infirmier Pratique avancée",
+  "created_at": {
+    "$date": "2025-05-30T19:44:50.757Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:44:50.757Z"
+  },
+  "matricule": "COM199LST"
+},
+{
+  "_id": {
+    "$oid": "6839ee9cda78f8862b14a6bc"
+  },
+  "name": "Préparateur",
+  "created_at": {
+    "$date": "2025-05-30T19:45:00.283Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:45:00.283Z"
+  },
+  "matricule": "COM936BUD"
+},
+{
+  "_id": {
+    "$oid": "6839eea5da78f8862b14a6bd"
+  },
+  "name": "Manipulateur",
+  "created_at": {
+    "$date": "2025-05-30T19:45:09.561Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:45:09.561Z"
+  },
+  "matricule": "COM341NWK"
+},
+{
+  "_id": {
+    "$oid": "6839eeb2da78f8862b14a6be"
+  },
+  "name": "Technicien de laboratoire",
+  "created_at": {
+    "$date": "2025-05-30T19:45:22.250Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:45:22.250Z"
+  },
+  "matricule": "COM187ZVF"
+},
+{
+  "_id": {
+    "$oid": "6839eebeda78f8862b14a6bf"
+  },
+  "name": "Technicien",
+  "created_at": {
+    "$date": "2025-05-30T19:45:34.267Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:45:34.267Z"
+  },
+  "matricule": "COM305LIL"
+},
+{
+  "_id": {
+    "$oid": "6839eecada78f8862b14a6c0"
+  },
+  "name": "Agent",
+  "created_at": {
+    "$date": "2025-05-30T19:45:46.611Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:45:46.611Z"
+  },
+  "matricule": "COM125ZWL"
+}]

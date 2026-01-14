@@ -1,0 +1,84 @@
+[{
+  "_id": {
+    "$oid": "6839e0ace79da9a5927682a5"
+  },
+  "first_name": "Ivy",
+  "last_name": "Caco",
+  "phoneNumber": "4786523145",
+  "email": "ivy@gmail.com",
+  "password": "12345678",
+  "role": "cadre",
+  "logged_in": false,
+  "service_id": "6839f0e3da78f8862b14a6c1",
+  "created_at": {
+    "$date": "2025-05-30T18:45:32.293Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-31T15:57:50.042Z"
+  },
+  "matricule": "CAD090415BRZP",
+  "speciality_id": "6839ee66da78f8862b14a6b8"
+},
+{
+  "_id": {
+    "$oid": "6839e158e79da9a5927682a6"
+  },
+  "first_name": "Duval",
+  "last_name": "Admin",
+  "phoneNumber": "4578654896",
+  "email": "admin@gmail.com",
+  "password": "12345678",
+  "role": "admin",
+  "logged_in": true,
+  "service_id": null,
+  "created_at": {
+    "$date": "2025-05-30T18:48:24.421Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:46:18.308Z"
+  },
+  "matricule": "ADM920803IGOW",
+  "speciality_id": "6839ee82da78f8862b14a6ba"
+},
+{
+  "_id": {
+    "$oid": "6839f30dda78f8862b14a6c6"
+  },
+  "first_name": "Jenny",
+  "last_name": "Aymard",
+  "phoneNumber": "7896542356",
+  "email": "jenny@gmail.com",
+  "password": "12345678",
+  "role": "nurse",
+  "logged_in": false,
+  "service_id": "6839f0e3da78f8862b14a6c1",
+  "speciality_id": "6839ee76da78f8862b14a6b9",
+  "created_at": {
+    "$date": "2025-05-30T20:03:57.385Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-01T17:30:25.747Z"
+  },
+  "matricule": "INF755425YDVY"
+},
+{
+  "_id": {
+    "$oid": "683d6a7e8b013c17b0e679e9"
+  },
+  "first_name": "Pharel",
+  "last_name": "Wylly",
+  "phoneNumber": "7856486354",
+  "email": "pharel@gmail.com",
+  "password": "12345678",
+  "role": "nurse",
+  "logged_in": false,
+  "service_id": "6839f0e3da78f8862b14a6c1",
+  "speciality_id": "6839eeb2da78f8862b14a6be",
+  "created_at": {
+    "$date": "2025-06-02T11:10:22.401Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-02T11:10:22.401Z"
+  },
+  "matricule": "INF528793RQMX"
+}]

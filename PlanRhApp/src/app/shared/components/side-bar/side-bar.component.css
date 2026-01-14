@@ -1,0 +1,32 @@
+
+/* Role based coloring for sidebar buttons (include 'sec' role) */
+.role-cadre .bg-button,
+.role-nurse .bg-button,
+.role-sec .bg-button {
+	background-color: #1f77b4; /* bleu pour cadre, nurse et sec */
+}
+.role-cadre .bg-button:hover,
+.role-nurse .bg-button:hover,
+.role-sec .bg-button:hover {
+	background-color: #155d98; /* hover slightly darker blue for roles */
+}
+
+/* Ensure selected sidebar link uses full blue background and white text */
+.role-cadre a.text-white.bg-button,
+.role-nurse a.text-white.bg-button,
+.role-sec a.text-white.bg-button,
+.role-cadre .bg-button,
+.role-nurse .bg-button,
+.role-sec .bg-button {
+	background-color: #1f77b4 !important;
+	color: #ffffff !important;
+}
+
+/* Make sure hover on the anchor (not only the icon) shows blue */
+.role-cadre a:hover,
+.role-nurse a:hover,
+.role-sec a:hover {
+	background-color: #155d98 !important;
+	color: #ffffff !important;
+}
+

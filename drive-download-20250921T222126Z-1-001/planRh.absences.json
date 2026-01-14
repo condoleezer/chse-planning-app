@@ -1,0 +1,69 @@
+[{
+  "_id": {
+    "$oid": "683d82020e04098b97401603"
+  },
+  "staff_id": "683d6a7e8b013c17b0e679e9",
+  "start_date": "2025-06-08",
+  "start_hour": "10:00",
+  "end_date": "2025-06-11",
+  "end_hour": "10:00",
+  "reason": "ras",
+  "comment": "ras",
+  "replacement_id": null,
+  "service_id": "6839f0e3da78f8862b14a6c1",
+  "absence_code_id": "683d67fc8b013c17b0e679e6",
+  "status": "Validé par le cadre",
+  "created_at": {
+    "$date": "2025-06-02T12:50:42.701Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-02T12:55:34.049Z"
+  },
+  "matricule": "ABS608701UP"
+},
+{
+  "_id": {
+    "$oid": "684bedf9a15e0294d6b00016"
+  },
+  "staff_id": "6839f30dda78f8862b14a6c6",
+  "start_date": "2025-06-16",
+  "start_hour": "10:00",
+  "end_date": "2025-06-18",
+  "end_hour": "10:00",
+  "reason": "ras",
+  "comment": "ras",
+  "replacement_id": "683d6a7e8b013c17b0e679e9",
+  "service_id": "6839f0e3da78f8862b14a6c1",
+  "absence_code_id": "683d67fc8b013c17b0e679e6",
+  "status": "Refusé par le cadre",
+  "created_at": {
+    "$date": "2025-06-13T11:23:05.188Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-13T11:43:09.505Z"
+  },
+  "matricule": "ABS718728OR"
+},
+{
+  "_id": {
+    "$oid": "684bee2ba15e0294d6b00017"
+  },
+  "staff_id": "6839f30dda78f8862b14a6c6",
+  "start_date": "2025-06-17",
+  "start_hour": "10:00",
+  "end_date": "2025-06-20",
+  "end_hour": "10:00",
+  "reason": "ras",
+  "comment": "ras",
+  "replacement_id": "683d6a7e8b013c17b0e679e9",
+  "service_id": "6839f0e3da78f8862b14a6c1",
+  "absence_code_id": "683d68968b013c17b0e679e8",
+  "status": "Validé par le cadre",
+  "created_at": {
+    "$date": "2025-06-13T11:23:55.233Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-13T11:44:22.858Z"
+  },
+  "matricule": "ABS140422YE"
+}]

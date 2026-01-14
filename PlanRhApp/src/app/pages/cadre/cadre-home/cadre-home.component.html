@@ -1,0 +1,85 @@
+<div class="dashboard-container p-4 md:p-6">
+  <p class="dashboard-title text-2xl md:text-3xl font-bold mb-6">Tableau de Bord</p>
+  
+  <!-- Cartes de statistiques -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <p-card header="Mes absences de demain" class="shadow-md">
+      <div class="flex items-center justify-between">
+        <p class="text-5xl font-bold">{{stats.tomorrowAbsences}}</p>
+        <i class="pi pi-calendar text-4xl opacity-50"></i>
+      </div>
+      <p class="text-sm mt-2">Personnes absentes</p>
+    </p-card>
+
+    <p-card header="Tous mes absences ce mois" class="shadow-md">
+      <div class="flex items-center justify-between">
+        <p class="text-5xl font-bold">{{stats.monthAbsences}}</p>
+        <i class="pi pi-chart-bar text-4xl opacity-50"></i>
+      </div>
+      <p class="text-sm mt-2">Demandes ce mois</p>
+    </p-card>
+
+    <p-card header="N° de personnel dans mon service" class="shadow-md">
+      <div class="flex items-center justify-between">
+        <p class="text-5xl font-bold">{{stats.serviceStaff}}</p>
+        <i class="pi pi-users text-4xl opacity-50"></i>
+      </div>
+      <p class="text-sm mt-2">Dans votre service</p>
+    </p-card>
+
+    <p-card header="Remplaçants disponibles" class="shadow-md">
+      <div class="flex items-center justify-between">
+        <p class="text-5xl font-bold">{{stats.availableReplacements}}</p>
+        <i class="pi pi-id-card text-4xl opacity-50"></i>
+      </div>
+      <p class="text-sm mt-2">Professionnels disponibles</p>
+    </p-card>
+  </div>
+
+  <!-- Graphique -->
+  <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+    <p-chart type="bar" [data]="chartData" [options]="chartOptions" height="300px"></p-chart>
+  </div>
+
+  <!-- Absences du jour -->
+  <p-card header="Absences de demain" class="mb-6">
+    <p-table 
+      [value]="tomorrowAbsences" 
+      [paginator]="true" 
+      [rows]="5"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-striped"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-absence>
+        <tr>
+          <td>{{absence.staffName}}</td>
+          <td>{{absence.startDate}}</td>
+          <td>{{absence.endDate}}</td>
+          <td>{{absence.replacementName}}</td>
+          <td>
+            <p-tag 
+              [value]="absence.status" 
+              [severity]="getBadgeSeverity(absence.status)"
+            ></p-tag>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [colSpan]="cols.length" class="text-center py-4 justify-center">
+            Aucune absence pour demain
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-toast></p-toast>
+</div>

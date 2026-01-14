@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:7
+    container_name: planrh_mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
+      - ./drive-download-20250921T222126Z-1-001:/data/seed
+    networks:
+      - planrh_net
+
+  backend:
+    build:
+      context: ./PlanRHAPI
+      dockerfile: Dockerfile
+    container_name: planrh_backend
+    restart: always
+    env_file:
+      - ./PlanRHAPI/.env
+    environment:
+      - ENV=production
+      - PYTHONPATH=/app
+      - MONGO_URI=mongodb://planrh_mongo:27017
+      - MONGO_DB=planRH
+    depends_on:
+      - mongo
+    networks:
+      - planrh_net
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./PlanRhApp
+      dockerfile: Dockerfile
+    container_name: planrh_frontend
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - planrh_net
+    depends_on:
+      - backend
+
+networks:
+  planrh_net:
+    driver: bridge

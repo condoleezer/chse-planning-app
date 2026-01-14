@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "6839f0e3da78f8862b14a6c1"
+  },
+  "name": "Cardiologie",
+  "head": "Ivy",
+  "created_at": {
+    "$date": "2025-05-30T19:54:43.705Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:54:43.705Z"
+  },
+  "matricule": "SERV163AAB"
+},
+{
+  "_id": {
+    "$oid": "6839f0f4da78f8862b14a6c2"
+  },
+  "name": "Pneumologie",
+  "head": "Ivy",
+  "created_at": {
+    "$date": "2025-05-30T19:55:00.623Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:55:00.623Z"
+  },
+  "matricule": "SERV718GST"
+},
+{
+  "_id": {
+    "$oid": "6839f103da78f8862b14a6c3"
+  },
+  "name": "Néphrologie",
+  "head": "Ivy",
+  "created_at": {
+    "$date": "2025-05-30T19:55:15.313Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:55:15.313Z"
+  },
+  "matricule": "SERV482GIH"
+},
+{
+  "_id": {
+    "$oid": "6839f113da78f8862b14a6c4"
+  },
+  "name": "Rhumatologie",
+  "head": "Ivy",
+  "created_at": {
+    "$date": "2025-05-30T19:55:31.799Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:55:31.799Z"
+  },
+  "matricule": "SERV871BZN"
+},
+{
+  "_id": {
+    "$oid": "6839f126da78f8862b14a6c5"
+  },
+  "name": "Oncologie",
+  "head": "Ivy",
+  "created_at": {
+    "$date": "2025-05-30T19:55:50.017Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T19:55:50.017Z"
+  },
+  "matricule": "SERV598WRR"
+}]

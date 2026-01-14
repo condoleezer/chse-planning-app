@@ -1,0 +1,66 @@
+[{
+  "_id": {
+    "$oid": "683d67fc8b013c17b0e679e6"
+  },
+  "name": "Absence à qualifier",
+  "name_abrege": "AAQ",
+  "regroupement": "AUTRES",
+  "indicator": "AUTRES",
+  "begin_date": {
+    "$date": "2023-04-03T22:00:00.000Z"
+  },
+  "end_date": {
+    "$date": "2023-04-25T22:00:00.000Z"
+  },
+  "created_at": {
+    "$date": "2025-06-02T10:59:40.382Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-02T10:59:40.382Z"
+  },
+  "matricule": "CODE06455U"
+},
+{
+  "_id": {
+    "$oid": "683d68518b013c17b0e679e7"
+  },
+  "name": "ACTRE",
+  "name_abrege": "ACTRE",
+  "regroupement": "CONGES",
+  "indicator": "AUTRES",
+  "begin_date": {
+    "$date": "2022-01-02T23:00:00.000Z"
+  },
+  "end_date": {
+    "$date": "2022-08-23T22:00:00.000Z"
+  },
+  "created_at": {
+    "$date": "2025-06-02T11:01:05.373Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-02T11:01:05.373Z"
+  },
+  "matricule": "CODE25206S"
+},
+{
+  "_id": {
+    "$oid": "683d68968b013c17b0e679e8"
+  },
+  "name": "Absence injustifiée",
+  "name_abrege": "AI",
+  "regroupement": "AUTRES",
+  "indicator": "AUTRES",
+  "begin_date": {
+    "$date": "2024-04-22T22:00:00.000Z"
+  },
+  "end_date": {
+    "$date": "2024-12-23T23:00:00.000Z"
+  },
+  "created_at": {
+    "$date": "2025-06-02T11:02:14.175Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-02T11:02:14.175Z"
+  },
+  "matricule": "CODE30645G"
+}]

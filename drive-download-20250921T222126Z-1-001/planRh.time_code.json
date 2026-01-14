@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "6850af0d4501e37e6c46f4da"
+  },
+  "name": "hgh",
+  "code": "jqhjzqh",
+  "code_abrege": "hgqzj",
+  "plage_start": "2025-06-17T06:00:00.267Z",
+  "plage_end": "2025-06-17T16:00:00.116Z",
+  "regroupement": "sgedj",
+  "indicator": "rasjrksj",
+  "begin_date": {
+    "$date": "2024-12-31T23:00:00.000Z"
+  },
+  "end_date": {
+    "$date": "2098-12-31T23:00:00.000Z"
+  },
+  "comment": "zkjek",
+  "last": "sjrksej",
+  "created_at": {
+    "$date": "2025-06-17T01:55:57.402Z"
+  },
+  "updated_at": {
+    "$date": "2025-06-17T01:55:57.402Z"
+  },
+  "matricule": "CT44259F"
+}]
