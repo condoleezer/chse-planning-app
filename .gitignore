@@ -3,3 +3,4 @@ PlanRHAPI/database/
 .env
 __pycache__/
 *.pyc
+echo "PlanRHAPI/database/" >> .gitignore
