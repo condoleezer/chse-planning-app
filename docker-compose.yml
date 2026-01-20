@@ -4,11 +4,9 @@ services:
     image: mongo:7
     container_name: planrh_mongo
     restart: always
-    ports:
-      - "27017:27017"
     volumes:
       - ./mongo_data:/data/db
-      - ./drive-download-20250921T222126Z-1-001:/data/seed
+      - ./seeds:/data/seed
     networks:
       - planrh_net
 
@@ -39,7 +37,7 @@ services:
     container_name: planrh_frontend
     restart: always
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - planrh_net
     depends_on:
