@@ -16,6 +16,8 @@ services:
       dockerfile: Dockerfile
     container_name: planrh_backend
     restart: always
+    ports:
+      - "8000:8000"
     env_file:
       - ./PlanRHAPI/.env
     environment:

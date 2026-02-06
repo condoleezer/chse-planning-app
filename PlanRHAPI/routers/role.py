@@ -2,7 +2,7 @@ from bson import ObjectId
 from fastapi import HTTPException, APIRouter, Depends
 from starlette import status
 
-from database.database import roles
+from database.database import role
 
 router = APIRouter()
 

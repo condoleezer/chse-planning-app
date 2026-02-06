@@ -2,7 +2,7 @@ from bson import ObjectId
 from fastapi import HTTPException, APIRouter
 from starlette import status
 from crud.code import create_code, delete_code, update_code, generate_code_matricule
-from database.database import codes
+from database.database import code_meanings
 from schemas.serviceCreate import CodeCreate
 from datetime import datetime
 from fastapi import File, UploadFile
@@ -77,7 +77,7 @@ async def delete(code_id: str):
 @router.get("/codes")
 async def get_codes():
     try:
-        code_l = codes.find()
+        code_l = code_meanings.find()
         code_list = [
             {
                 "id": str(code["_id"]),
@@ -102,7 +102,7 @@ async def get_codes():
 @router.get("/codes/{code_id}")
 async def get_code_by_id(code_id: str):
     try:
-        code = codes.find_one({"_id": ObjectId(code_id)})
+        code = code_meanings.find_one({"_id": ObjectId(code_id)})
         if code:
             code_details = {
                 "id": str(code["_id"]),
@@ -138,13 +138,13 @@ async def update_code(code_id: str, code_info: CodeCreate):
             "updated_at": datetime.now()
         }
         
-        result = codes.update_one(
+        result = code_meanings.update_one(
             {"_id": ObjectId(code_id)},
             {"$set": code_data}
         )
         
         if result.modified_count == 1:
-            updated_code = codes.find_one({"_id": ObjectId(code_id)})
+            updated_code = code_meanings.find_one({"_id": ObjectId(code_id)})
             return {
                 "message": "code mis à jour avec succès",
                 "data": {

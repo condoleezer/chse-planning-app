@@ -1,16 +1,8 @@
 import os
 import sys
 
-# Ensure the application directory is on sys.path so top-level imports like
-# `from database.database import db` work regardless of how the module is started
-# (uvicorn, python -m, or inside Docker). This is a small, explicit fallback
-# that avoids import errors when PYTHONPATH isn't applied at runtime.
+# Assure que /app et le dossier courant sont dans sys.path (pour Docker/uvicorn)
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-
-
-# Ensure /app and its parent are on sys.path for Docker/Compose import reliability
-import sys, os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi import FastAPI
@@ -24,7 +16,7 @@ origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins= origins,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,7 +38,6 @@ app.include_router(sessions.router, prefix=API_PREFIX)
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
 
 @app.get("/hello/{name}")
 async def say_hello(name: str):

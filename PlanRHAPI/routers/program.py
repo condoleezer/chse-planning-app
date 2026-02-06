@@ -2,7 +2,7 @@ from bson import ObjectId
 from fastapi import APIRouter, HTTPException
 from starlette import status
 
-from database.database import programs
+from database.database import annual_programs
 from schemas.AgentPlan import AgentPlan
 
 router = APIRouter()
@@ -11,11 +11,11 @@ router = APIRouter()
 @router.get("/programs")
 async def get_programs():
     try:
-        annual_programs = programs.find()
+        prog_cursor = annual_programs.find()
         programs_list = [
-            {"id": str(program["_id"],), "name": program["name"], "data": program["data"]
-             } for
-            program in annual_programs]
+            {"id": str(program["_id"]), "name": program["name"], "data": program["data"]}
+            for program in prog_cursor
+        ]
         return {"message" : "Plannings recupérés avec succès", "data": programs_list}
     except Exception as e:
         return HTTPException(
@@ -27,7 +27,7 @@ async def get_programs():
 @router.get("/programs/{program_id}")
 async def get_programs_by_id(program_id: str):
     try:
-        program = programs.find_one({"_id": ObjectId(program_id)})
+        program = annual_programs.find_one({"_id": ObjectId(program_id)})
         if program:
             program_details = {
                 "id": str(program["_id"]), "name": program["name"], "data": program["data"]
@@ -47,7 +47,7 @@ async def get_programs_by_id(program_id: str):
 @router.post("/programs/name")
 async def get_programs_by_username(name: AgentPlan):
     try:
-        program = programs.find_one({"name": name.agent_name})
+        program = annual_programs.find_one({"name": name.agent_name})
         if program:
             program_details = {
                 "id": str(program["_id"]), "name": program["name"], "data": program["data"]
