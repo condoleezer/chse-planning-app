@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: planrh-backend
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./PlanRHAPI/Dockerfile
+    dockerContext: ./PlanRHAPI
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb+srv://madaveisabelle_db_user:Madave14.@cluster0.uqvmy3o.mongodb.net/planRH?retryWrites=true&w=majority&appName=Cluster0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PORT
+        value: "8000"
+      - key: ENV
+        value: production
+      - key: PYTHONPATH
+        value: /app
