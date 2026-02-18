@@ -11,9 +11,6 @@ dist/
 .env
 *.env
 
-# Mongo data dumps
-PlanRHAPI/database/
-
 # Local artifacts
 *.log
 *.sqlite
@@ -22,9 +19,3 @@ PlanRHAPI/database/
 # OS
 .DS_Store
 Thumbs.db
-venv/
-PlanRHAPI/database/
-.env
-__pycache__/
-*.pyc
-echo "PlanRHAPI/database/" >> .gitignore
