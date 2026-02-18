@@ -1,14 +1,11 @@
 FROM python:3.11-slim
 
-# Forcer pip à ne pas utiliser setuptools par défaut
-ENV PIP_NO_BUILD_ISOLATION=0
-
 WORKDIR /app
 
-# Installation des dépendances système incluant setuptools
+# Installation des dépendances système et build tools
 RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential gcc && \
-    pip install --upgrade pip setuptools wheel && \
+    pip install --upgrade pip setuptools wheel poetry && \
     rm -rf /var/lib/apt/lists/*
 
 # Install python deps
