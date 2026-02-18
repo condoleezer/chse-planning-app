@@ -45,7 +45,7 @@
     "$oid": "6839f113da78f8862b14a6c4"
   },
   "name": "Rhumatologie",
-  "head": "Ivy",
+  "head": "Pierre",
   "created_at": {
     "$date": "2025-05-30T19:55:31.799Z"
   },
@@ -59,7 +59,7 @@
     "$oid": "6839f126da78f8862b14a6c5"
   },
   "name": "Oncologie",
-  "head": "Ivy",
+  "head": "Marie",
   "created_at": {
     "$date": "2025-05-30T19:55:50.017Z"
   },

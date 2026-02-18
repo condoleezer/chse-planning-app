@@ -2,16 +2,19 @@ from bson import ObjectId
 from fastapi import HTTPException, APIRouter, Depends
 from starlette import status
 
-from database.database import role
+from database.database import db
 
 router = APIRouter()
+
+# Utiliser la collection 'role' (singulier) qui existe dans la base de données
+role_collection = db['role']
 
 
 # Route qui récupère tous les users de la base de donnée
 @router.get("/roles")
 async def get_roles():
     try:
-        role_l= roles.find()
+        role_l = role_collection.find()
         roles_list = [
             {"id": str(role["_id"]), "name": role["name"],} for
             role in role_l]
@@ -28,11 +31,11 @@ async def get_roles():
 @router.get("/roles/{role_id}")
 async def get_role_by_id(role_id: str):
     try:
-        role = roles.find_one({"_id": ObjectId(role_id)})
-        if role:
+        found_role = role_collection.find_one({"_id": ObjectId(role_id)})
+        if found_role:
             role_details = {
-                "id": str(role["_id"]),
-                "name": role["name"],
+                "id": str(found_role["_id"]),
+                "name": found_role["name"],
             }
             return {"message" : "Roles recupéré avec succès", "data": role_details}
         else:

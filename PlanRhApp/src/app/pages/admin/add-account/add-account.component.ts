@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MenuItem} from 'primeng/api';
 import {Breadcrumb} from 'primeng/breadcrumb';
@@ -6,9 +6,7 @@ import {Select} from 'primeng/select';
 import {Password} from 'primeng/password';
 import {Button} from 'primeng/button';
 import {InputText} from 'primeng/inputtext';
-
-class BaseEntity {
-}
+import {RoleService} from '../../../services/role/role.service';
 
 @Component({
   selector: 'app-add-account',
@@ -24,23 +22,19 @@ class BaseEntity {
   templateUrl: './add-account.component.html',
   styleUrl: './add-account.component.css'
 })
-export class AddAccountComponent {
+export class AddAccountComponent implements OnInit {
   items: MenuItem[] | undefined;
 
   adminForm!: FormGroup;
 
-  roles!: BaseEntity[];
+  roles: any[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private roleService: RoleService) {
 
   }
 
   ngOnInit() {
-    this.roles = [
-      { name: 'Sécrétaire', id: 'NY' },
-      { name: 'Admin', id: 'RM' },
-      { name: 'Cadre', id: 'LDN' }
-    ];
+    this.loadRoles();
     this.items = [
       { label: 'Compte' },
       { label: 'Créer un compte' },
@@ -49,8 +43,31 @@ export class AddAccountComponent {
       password: ['', Validators.required],
       re_password: ['', Validators.required],
       email: ['', Validators.required],
-      role: new FormControl<BaseEntity | null>(this.roles[0], Validators.required),
+      role: new FormControl<any | null>(null, Validators.required),
     });
+  }
+
+  loadRoles() {
+    this.roleService.findAllRoles().subscribe({
+      next: (response) => {
+        this.roles = response.data.map(role => ({
+          label: this.getDisplayRole(role.name),
+          value: role.name
+        }));
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des rôles', err);
+      }
+    });
+  }
+
+  getDisplayRole(role: string): string {
+    switch (role) {
+      case 'admin': return 'Administrateur';
+      case 'cadre': return 'Cadre de santé';
+      case 'nurse': return 'Agent de santé';
+      default: return role;
+    }
   }
 
   submit() {

@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   title: 'PlanRH APP',
-  apiUrl: '/api'
+  apiUrl: 'http://localhost:8000/api'
 };

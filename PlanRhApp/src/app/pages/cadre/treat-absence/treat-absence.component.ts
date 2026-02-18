@@ -34,7 +34,21 @@ export class TreatAbsenceComponent implements OnInit {
   replacement: User | null = null;
   service: Service | null = null;
   users: City[] = [];
-  selectedUser: City | undefined;
+  selectedUser: string | undefined;
+  showReplacementDropdown = false;
+
+  onUserSelect(event: any) {
+    console.log('User selected:', event);
+    console.log('selectedUser:', this.selectedUser);
+  }
+
+  enableReplacementChange(): void {
+    this.showReplacementDropdown = true;
+    // Pré-sélectionner le remplaçant actuel dans le dropdown
+    if (this.replacement && this.replacement.id) {
+      this.selectedUser = this.replacement.id;
+    }
+  }
 
   constructor(
     private absenceService: AbsenceService,
@@ -61,7 +75,7 @@ export class TreatAbsenceComponent implements OnInit {
     console.log('Loading absence details for ID:', absenceId);
     forkJoin([
       this.absenceService.findAbsenceById(absenceId),
-      this.userService.getNurses(),
+      this.userService.findAllUsers(),
       this.serviceService.findAllServices()
     ]).subscribe({
       next: ([absenceResponse, usersResponse, servicesResponse]) => {
@@ -72,18 +86,48 @@ export class TreatAbsenceComponent implements OnInit {
         console.log('Assigned absence:', this.absence);
         const allUsers = usersResponse.data || [];
         const allServices = servicesResponse.data || [];
-  
+
         if (this.absence && this.absence.id) {
           console.log('Valid absence found with ID:', this.absence.id);
+          console.log('=== DEBUG START ===');
+          console.log('Current absence replacement_id:', this.absence.replacement_id);
           this.staff = allUsers.find(user => user.id === this.absence!.staff_id) || null;
           this.replacement = allUsers.find(user => user.id === this.absence!.replacement_id) || null;
-          this.service = allServices.find(service => service.id === this.absence!.service_id) || null; 
-          this.users = allUsers
-            .filter(user => user.id)
-            .map(user => ({
-              name: `${user.first_name} ${user.last_name}`,
-              code: user.id!
-            }));
+          this.service = allServices.find(service => service.id === this.absence!.service_id) || null;
+
+          console.log('Found replacement user:', this.replacement);
+
+          // Filtrer les utilisateurs selon le contexte
+          let filteredUsers = allUsers.filter(user => user.id);
+
+          if (!this.replacement || !this.replacement.id) {
+            // Si pas de remplaçant assigné, ne proposer que les infirmières du même service
+            console.log('No existing replacement, filtering users: infirmières in same service');
+            filteredUsers = filteredUsers.filter(user =>
+              user.role === 'nurse' && user.service_id === this.absence!.service_id
+            );
+            console.log('Filtered users (infirmières same service):', filteredUsers);
+          } else {
+            // Si remplaçant existe, proposer tous les utilisateurs
+            console.log('Existing replacement found, showing all users');
+          }
+
+          this.users = filteredUsers.map(user => ({
+            name: `${user.first_name} ${user.last_name}`,
+            code: user.id!
+          }));
+
+          console.log('Mapped users list:', this.users);
+
+          // Initialiser selectedUser avec le remplaçant actuel s'il existe
+          if (this.replacement && this.replacement.id) {
+            this.selectedUser = this.replacement.id;
+            console.log('Set selectedUser to existing replacement:', this.selectedUser);
+          } else {
+            console.log('No existing replacement, selectedUser remains undefined');
+            this.selectedUser = undefined;
+          }
+          console.log('=== DEBUG END ===');
         } else {
           console.error('No valid absence or missing ID:', this.absence);
           this.showError('Absence non trouvée ou ID manquant');
@@ -141,7 +185,7 @@ export class TreatAbsenceComponent implements OnInit {
   
     const absenceId = this.absence.id; // Stocke l'ID dans une variable locale pour garantir qu'il est string
     const status = 'Validé par le cadre';
-    const replacementId = this.selectedUser ? this.selectedUser.code : this.absence.replacement_id || null;
+    const replacementId = this.selectedUser || this.absence.replacement_id || null;
   
     this.absenceService.updateAbsence(absenceId, status, replacementId).subscribe({
       next: () => {
@@ -163,7 +207,7 @@ export class TreatAbsenceComponent implements OnInit {
   
     const absenceId = this.absence.id; // Stocke l'ID dans une variable locale pour garantir qu'il est string
     const status = 'Refusé par le cadre';
-    const replacementId = this.selectedUser ? this.selectedUser.code : this.absence.replacement_id || null;
+    const replacementId = this.selectedUser || this.absence.replacement_id || null;
   
     this.absenceService.updateAbsence(absenceId, status, replacementId).subscribe({
       next: () => {

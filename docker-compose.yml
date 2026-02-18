@@ -1,15 +1,5 @@
 version: "3.8"
 services:
-  mongo:
-    image: mongo:7
-    container_name: planrh_mongo
-    restart: always
-    volumes:
-      - ./mongo_data:/data/db
-      - ./seeds:/data/seed
-    networks:
-      - planrh_net
-
   backend:
     build:
       context: ./PlanRHAPI
@@ -23,10 +13,8 @@ services:
     environment:
       - ENV=production
       - PYTHONPATH=/app
-      - MONGO_URI=mongodb://planrh_mongo:27017
+      - MONGODB_URI=mongodb://host.docker.internal:27017
       - MONGO_DB=planRH
-    depends_on:
-      - mongo
     networks:
       - planrh_net
     expose:

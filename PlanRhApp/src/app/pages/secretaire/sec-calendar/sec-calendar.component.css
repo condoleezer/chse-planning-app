@@ -1,0 +1,60 @@
+:host ::ng-deep .fc-event {
+  background-color: #3b82f6 !important; /* Fond bleu pour l'événement */
+  border: none !important; /* Supprimer les bordures par défaut */
+  padding: 4px !important;
+  border-radius: 4px !important;
+  color: #000000 !important; /* Texte noir pour être visible sur fond bleu */
+}
+
+:host ::ng-deep .fc-event-title {
+  color: #000000 !important; /* Texte noir pour le titre */
+}
+
+:host ::ng-deep .fc-event .fc-event-main {
+  color: #000000 !important; /* Texte noir pour le contenu principal */
+}
+
+:host ::ng-deep .fc-event .fc-event-time {
+  color: #000000 !important; /* Texte noir pour l'heure */
+}
+
+:host ::ng-deep .fc * {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-toolbar * {
+  color: #000000 !important;
+}
+
+/* Specific rules for calendar headers and navigation */
+:host ::ng-deep .fc-header-toolbar * {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-button {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-button:hover {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-col-header * {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-daygrid-day-number {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-daygrid-day-top * {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-timegrid-slot {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .fc-timegrid-axis * {
+  color: #000000 !important;
+}

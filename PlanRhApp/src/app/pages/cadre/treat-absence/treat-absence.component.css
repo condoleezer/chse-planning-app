@@ -1,0 +1,45 @@
+/* Force specific text elements to black color */
+:host ::ng-deep p {
+  color: #000000 !important;
+}
+
+:host ::ng-deep .p-badge span {
+  color: #000000 !important;
+}
+
+/* Ensure dropdown selected value is visible */
+:host ::ng-deep .p-select .p-select-label {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+:host ::ng-deep .p-select.p-select-open .p-select-label {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+/* Ensure dropdown options have proper contrast */
+:host ::ng-deep .p-select-option {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+:host ::ng-deep .p-select-option:hover {
+  background-color: #f0f0f0 !important;
+  color: #000000 !important;
+}
+
+:host ::ng-deep .p-select-option.p-select-option-selected {
+  background-color: #e3f2fd !important;
+  color: #000000 !important;
+}
+
+/* Additional styles for better visibility */
+:host ::ng-deep .p-select .p-select-trigger {
+  background-color: #ffffff !important;
+}
+
+:host ::ng-deep .p-select input {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}

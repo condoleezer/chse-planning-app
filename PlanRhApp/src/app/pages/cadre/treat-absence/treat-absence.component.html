@@ -15,7 +15,7 @@
         <div class="flex flex-col gap-4">
           <p>Nom du demandeur : {{ staff ? staff.first_name + ' ' + staff.last_name : 'Inconnu' }}</p>
           <p>Service : {{ service ? service.name : 'Non attribué' }}</p>
-          <p>Durée de l’absence : {{ getAbsenceDuration() }} Jours</p>
+          <p>Durée de l'absence : {{ getAbsenceDuration() }} Jours</p>
           <p>Motif : {{ absence?.reason || 'Non spécifié' }}</p>
         </div>
         <div class="flex flex-col gap-4">
@@ -34,13 +34,31 @@
       </div>
       <div class="flex gap-5 pt-5 items-center">
         <p>Choisir un Remplaçant : </p>
-        <p-select
-          [options]="users"
-          [(ngModel)]="selectedUser"
-          optionLabel="name"
-          placeholder="Sélectionner un remplaçant"
-          class="w-full md:w-72 h-10"
-        />
+        <div class="flex gap-3 items-center">
+          <!-- Si un remplaçant est déjà assigné, afficher son nom avec option de changement -->
+          <div *ngIf="replacement" class="flex items-center gap-2">
+            <span class="font-medium text-gray-800">{{ replacement.first_name }} {{ replacement.last_name }}</span>
+            <button
+              pButton
+              type="button"
+              label="Changer"
+              icon="pi pi-pencil"
+              class="p-button-sm p-button-outlined"
+              (click)="enableReplacementChange()"
+            ></button>
+          </div>
+          <!-- Si pas de remplaçant ou mode changement activé, afficher le dropdown -->
+          <p-select
+            *ngIf="!replacement || showReplacementDropdown"
+            [options]="users"
+            [(ngModel)]="selectedUser"
+            optionLabel="name"
+            optionValue="code"
+            placeholder="Sélectionner un remplaçant"
+            class="w-full md:w-72 h-10"
+            (onChange)="onUserSelect($event)"
+          />
+        </div>
       </div>
       <div class="flex pt-20 justify-around">
         <button

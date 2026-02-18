@@ -5,7 +5,7 @@ import string
 from datetime import datetime
 
 from crud.jwt_config import create_token
-from database.database import db, users
+from database.database import db, users, services
 
 
 def get_user_by_email(email):
@@ -69,6 +69,10 @@ async def create_user(user_info: dict):
         
         # Créer un token
         token = create_token(str(user_id))
+        
+        # Si c'est un cadre, mettre à jour la tête du service
+        if user_info.get("role") == "cadre" and user_info.get("service_id"):
+            services.update_one({"_id": ObjectId(user_info["service_id"])}, {"$set": {"head": user_info["first_name"], "updated_at": now}})
         
         return {
             "message": "User registered successfully",

@@ -81,4 +81,47 @@
     "$date": "2025-06-02T11:10:22.401Z"
   },
   "matricule": "INF528793RQMX"
-}]
+},
+{
+  "_id": {
+    "$oid": "6839f30dda78f8862b14a6c7"
+  },
+  "first_name": "Marie",
+  "last_name": "Dupont",
+  "phoneNumber": "4786523146",
+  "email": "marie.dupont@gmail.com",
+  "password": "12345678",
+  "role": "cadre",
+  "logged_in": false,
+  "service_id": "6839f126da78f8862b14a6c5",
+  "created_at": {
+    "$date": "2025-05-30T20:04:00.000Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T20:04:00.000Z"
+  },
+  "matricule": "CAD123456ONC",
+  "speciality_id": "6839ee66da78f8862b14a6b8"
+},
+{
+  "_id": {
+    "$oid": "6839f30dda78f8862b14a6c8"
+  },
+  "first_name": "Pierre",
+  "last_name": "Martin",
+  "phoneNumber": "4786523147",
+  "email": "pierre.martin@gmail.com",
+  "password": "12345678",
+  "role": "cadre",
+  "logged_in": false,
+  "service_id": "6839f113da78f8862b14a6c4",
+  "created_at": {
+    "$date": "2025-05-30T20:05:00.000Z"
+  },
+  "updated_at": {
+    "$date": "2025-05-30T20:05:00.000Z"
+  },
+  "matricule": "CAD123456RHE",
+  "speciality_id": "6839ee66da78f8862b14a6b8"
+}
+]

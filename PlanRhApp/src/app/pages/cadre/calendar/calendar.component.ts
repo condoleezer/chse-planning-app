@@ -193,8 +193,8 @@ export class CalendarComponent implements OnInit {
 
     return {
       html: `
-        <div class="fc-event-content" style="display: flex; gap: 8px; align-items: center;">
-          <span style="background-color: #3b82f6; color: #ffffff; padding: 2px 6px; border-radius: 4px;">${hours} ${user}</span>
+        <div style="background-color: #3b82f6 !important; color: #000000 !important; padding: 4px !important; border-radius: 4px !important; font-size: 12px !important; font-weight: bold !important;">
+          ${hours} ${user}
         </div>
       `
     };

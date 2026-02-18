@@ -10,7 +10,7 @@ RUN chmod +x /usr/local/bin/ng
 RUN ng build --output-path=./dist/plan-rh-app
 ### Serve with nginx
 FROM nginx:stable-alpine
-COPY --from=build /usr/src/app/dist/plan-rh-app /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist/plan-rh-app/browser /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80

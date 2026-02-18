@@ -18,21 +18,21 @@
           <div class="flex justify-center w-full sm:w-32 h-20 border border-gray-300 rounded hover:border-purple-400" [ngClass]="{'border-purple-400': isAdminSelected()}">
             <img src="assets/images/administrateur.png" class="m-1 rounded-2xl w-15 h-15 sm:w-full sm:h-full object-cover" alt="admin">
           </div>
-          <p class="font-light text-center text-xs sm:text-xs mt-2">Administrateur</p>
+          <p class="font-light text-center text-xs sm:text-xs mt-2 text-gray-700">Administrateur</p>
         </div>
 
         <div class="w-full sm:w-32 h-25 mx-auto sm:m-3 hover:text-purple-400" [ngClass]="{'text-purple-400': isCadreSelected()}" (click)="toggleCadreSelection()">
           <div class="flex justify-center w-full sm:w-32 h-20 border border-gray-300 rounded hover:border-purple-400" [ngClass]="{'border-purple-400': isCadreSelected()}">
             <img src="assets/images/cadre.png" class="m-1 rounded-2xl w-15 h-15 sm:w-full sm:h-full object-cover" alt="cadre">
           </div>
-          <p class="font-light text-center text-xs sm:text-xs mt-2">Cadre de santé</p>
+          <p class="font-light text-center text-xs sm:text-xs mt-2 text-gray-700">Cadre de santé</p>
         </div>
 
         <div class="w-full sm:w-32 h-25 mx-auto sm:m-3 hover:text-purple-400" [ngClass]="{'text-purple-400': isSecSelected()}" (click)="toggleSecSelection()">
           <div class="flex justify-center w-full sm:w-32 h-20 border border-gray-300 rounded hover:border-purple-400" [ngClass]="{'border-purple-400': isSecSelected()}">
             <img src="assets/images/medecin.png" class="m-1 rounded-2xl w-15 h-15 sm:w-full sm:h-full object-cover" alt="med">
           </div>
-          <p class="font-light text-center text-xs sm:text-xs mt-2">Agent de santé</p>
+          <p class="font-light text-center text-xs sm:text-xs mt-2 text-gray-700">Agent de santé</p>
         </div>
       </div>
 

@@ -302,6 +302,12 @@ async def assign_service(user_id: str, service: AssignService):
         )
         if result.modified_count == 0:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Utilisateur introuvable")
+        
+        # Si l'utilisateur est un cadre, mettre à jour la tête du service
+        user = users.find_one({"_id": ObjectId(user_id)})
+        if user and user.get("role") == "cadre":
+            services.update_one({"_id": ObjectId(service.service_id)}, {"$set": {"head": user["first_name"]}})
+        
         return {"message": "Service ajouté avec succès", "data": {"modified_count": result.modified_count}}
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Erreur lors de la mise à jour du mot de passe: {str(e)}")
