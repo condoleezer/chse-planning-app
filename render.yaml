@@ -1,4 +1,5 @@
 services:
+  # Backend API
   - type: web
     name: planrh-backend
     runtime: docker
@@ -17,3 +18,15 @@ services:
         value: production
       - key: PYTHONPATH
         value: /app
+
+  # Frontend Angular
+  - type: web
+    name: planrh-frontend
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./PlanRhApp/Dockerfile
+    dockerContext: ./PlanRhApp
+    envVars:
+      - key: API_URL
+        value: https://planrh-backend.onrender.com
