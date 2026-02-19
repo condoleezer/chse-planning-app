@@ -38,6 +38,10 @@ export class UserService {
     return this.http.get<Response<User[]>>(`${this.apiUrl}/users/head`)
   }
 
+  findAllVacataire(): Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${this.apiUrl}/users/vacataire`);
+  }
+
   deleteUser(userId: string): Observable<Response<any>> {
     return this.http.delete<Response<any>>(`${this.apiUrl}/users/delete/${userId}`);
   }
