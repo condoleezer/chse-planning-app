@@ -293,6 +293,29 @@ async def get_cadres():
     except Exception as e:
         return HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Erreur interne du serveur: {str(e)}")
 
+@router.get("/users/vacataire")
+async def get_vacataires():
+    try:
+        user_l = users.find({"role": "vacataire"})
+        vacataire_list = [
+            {
+                "id": str(user["_id"]), 
+                "first_name": user["first_name"], 
+                "last_name": user["last_name"], 
+                "phoneNumber": user["phoneNumber"], 
+                "role": user["role"], 
+                "email": user["email"],
+                "service_id": user.get("service_id", None),
+                "speciality_id": user.get("speciality_id", None),
+            }
+            for user in user_l
+        ]
+        if not vacataire_list:  # Check if the list is empty
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Vacataires non trouvés")
+        return {"message": "Vacataires récupérés avec succès", "data": vacataire_list}
+    except Exception as e:
+        return HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Erreur interne du serveur: {str(e)}")
+
 @router.post("/users/assignService/{user_id}")
 async def assign_service(user_id: str, service: AssignService):
     try:
