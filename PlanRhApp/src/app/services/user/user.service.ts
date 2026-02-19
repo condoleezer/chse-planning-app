@@ -11,47 +11,46 @@ import {AssignServiceRequest} from '../../dtos/request/AssignServiceRequest';
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl = environment.apiUrl + '/users'
-  
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
   constructor(private http: HttpClient) {}
 
   findAllUsers(): Observable<Response<User[]>> {
-    return this.http.get<Response<User[]>>(`${this.apiUrl}`)
+    return this.http.get<Response<User[]>>(`${this.apiUrl}/users`)
   }
 
   findUserById(userId: string): Observable<Response<User>> {
-    return this.http.get<Response<User>>(`${this.apiUrl}/${userId}`)
+    return this.http.get<Response<User>>(`${this.apiUrl}/users/${userId}`)
   }
 
   getNurses(): Observable<Response<User[]>> {
-    return this.http.get<Response<User[]>>(`${this.apiUrl}/nurse`);
+    return this.http.get<Response<User[]>>(`${this.apiUrl}/users/nurse`);
   }
 
   getUserInfo(): Observable<Response<User>> {
-    return this.http.get<Response<User>>(`${this.apiUrl}/user-info`);
+    return this.http.get<Response<User>>(`${this.apiUrl}/users/user-info`);
   }
 
   findAllNurse(): Observable<Response<User[]>> {
-    return this.http.get<Response<User[]>>(`${this.apiUrl}/nurse`)
+    return this.http.get<Response<User[]>>(`${this.apiUrl}/users/nurse`)
   }
 
   findAllHead(): Observable<Response<User[]>> {
-    return this.http.get<Response<User[]>>(`${this.apiUrl}/head`)
+    return this.http.get<Response<User[]>>(`${this.apiUrl}/users/head`)
   }
 
   deleteUser(userId: string): Observable<Response<any>> {
-    return this.http.delete<Response<any>>(`${this.apiUrl}/delete/${userId}`);
+    return this.http.delete<Response<any>>(`${this.apiUrl}/users/delete/${userId}`);
   }
 
   updateUser(userId: string, userData: any): Observable<Response<User>> {
-    return this.http.put<Response<User>>(`${this.apiUrl}/update/${userId}`, userData);
+    return this.http.put<Response<User>>(`${this.apiUrl}/users/update/${userId}`, userData);
   }
 
   assignService(userId: string, assignServiceRequest: AssignServiceRequest): Observable<Response<User>> {
-    return this.http.put<Response<User>>(`${this.apiUrl}/assignService/${userId}`, assignServiceRequest);
+    return this.http.put<Response<User>>(`${this.apiUrl}/users/assignService/${userId}`, assignServiceRequest);
   }
 
   changePassword(userId: string, changePasswordRequest: ChangePasswordRequest): Observable<Response<User>> {
-    return this.http.put<Response<User>>(`${this.apiUrl}/changePassword/${userId}`, changePasswordRequest);
+    return this.http.put<Response<User>>(`${this.apiUrl}/users/changePassword/${userId}`, changePasswordRequest);
   }
 }

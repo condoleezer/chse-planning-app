@@ -12,26 +12,26 @@ import {ChangeAskStatusRequest} from '../../dtos/request/ChangeAskStatusRequest'
 })
 export class AsksAsk {
 
-  apiUrl = environment.apiUrl + '/asks'
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
   constructor(private http: HttpClient) {}
 
   findAllAsks(): Observable<Response<Ask[]>> {
-    return this.http.get<Response<Ask[]>>(`${this.apiUrl}`)
+    return this.http.get<Response<Ask[]>>(`${this.apiUrl}/asks`)
   }
 
   findAskById(AskId: string): Observable<Response<Ask[]>> {
-    return this.http.get<Response<Ask[]>>(`${this.apiUrl}/${AskId}`)
+    return this.http.get<Response<Ask[]>>(`${this.apiUrl}/asks/${AskId}`)
   }
 
   createAsk(createAskRequest: CreateAskRequest): Observable<Response<Ask>> {
-    return this.http.post<Response<Ask>>(`${this.apiUrl}/create`, createAskRequest)
+    return this.http.post<Response<Ask>>(`${this.apiUrl}/asks/create`, createAskRequest)
   }
 
   deleteAsk(AskId: string): Observable<unknown> {
-    return this.http.delete(`${this.apiUrl}/delete/${AskId}`);
+    return this.http.delete(`${this.apiUrl}/asks/delete/${AskId}`);
   }
 
   changeAskStatus(AskId:string, changeAskStatusRequest: ChangeAskStatusRequest): Observable<Response<Ask>> {
-    return this.http.put<Response<Ask>>(`${this.apiUrl}/changeStatus/${AskId}`, changeAskStatusRequest);
+    return this.http.put<Response<Ask>>(`${this.apiUrl}/asks/changeStatus/${AskId}`, changeAskStatusRequest);
   }
 }

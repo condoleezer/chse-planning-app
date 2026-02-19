@@ -11,27 +11,27 @@ import { CreateCodeRequest } from '../../dtos/request/CreateServiceRequest';
   providedIn: 'root'
 })
 export class CodeService {
-  apiUrl = environment.apiUrl + '/codes';
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
   
   constructor(private http: HttpClient) {}
 
   findAllCodes(): Observable<Response<Code[]>> {
-    return this.http.get<Response<Code[]>>(`${this.apiUrl}`);
+    return this.http.get<Response<Code[]>>(`${this.apiUrl}/codes`);
   }
 
   findCodeById(codeId: string): Observable<Response<Code>> {
-    return this.http.get<Response<Code>>(`${this.apiUrl}/${codeId}`);
+    return this.http.get<Response<Code>>(`${this.apiUrl}/codes/${codeId}`);
   }
 
   createCode(createCodeRequest: CreateCodeRequest): Observable<Response<Code>> {
-    return this.http.post<Response<Code>>(`${this.apiUrl}/create`, createCodeRequest);
+    return this.http.post<Response<Code>>(`${this.apiUrl}/codes/create`, createCodeRequest);
   }
 
   updateCode(codeId: string, CodeData: CreateCodeRequest): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update/${codeId}`, CodeData);
+    return this.http.put(`${this.apiUrl}/codes/update/${codeId}`, CodeData);
   }
   
   deleteCode(codeId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${codeId}`);
+    return this.http.delete(`${this.apiUrl}/codes/delete/${codeId}`);
   }
 }

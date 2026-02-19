@@ -11,27 +11,27 @@ import { CreateSpecialityRequest } from '../../dtos/request/CreateServiceRequest
   providedIn: 'root'
 })
 export class SpecialityService {
-  apiUrl = environment.apiUrl + '/speciality';
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
   
   constructor(private http: HttpClient) {}
 
   findAllSpecialities(): Observable<Response<Speciality[]>> {
-    return this.http.get<Response<Speciality[]>>(`${this.apiUrl}`);
+    return this.http.get<Response<Speciality[]>>(`${this.apiUrl}/speciality`);
   }
 
   findSpecialityById(specialityId: string): Observable<Response<Speciality>> {
-    return this.http.get<Response<Speciality>>(`${this.apiUrl}/${specialityId}`);
+    return this.http.get<Response<Speciality>>(`${this.apiUrl}/speciality/${specialityId}`);
   }
 
   createSpeciality(createSpecialityRequest: CreateSpecialityRequest): Observable<Response<Speciality>> {
-    return this.http.post<Response<Speciality>>(`${this.apiUrl}/create`, createSpecialityRequest);
+    return this.http.post<Response<Speciality>>(`${this.apiUrl}/speciality/create`, createSpecialityRequest);
   }
 
   updateSpeciality(specialityId: string, SpecialityData: CreateSpecialityRequest): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update/${specialityId}`, SpecialityData);
+    return this.http.put(`${this.apiUrl}/speciality/update/${specialityId}`, SpecialityData);
   }
   
   deleteSpeciality(specialityId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${specialityId}`);
+    return this.http.delete(`${this.apiUrl}/speciality/delete/${specialityId}`);
   }
 }

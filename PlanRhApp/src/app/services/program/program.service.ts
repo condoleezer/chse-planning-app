@@ -11,18 +11,19 @@ import {Programs} from '../../models/programs';
 })
 export class ProgramService {
 
-  apiUrl = environment.apiUrl + '/programs'
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
+
   constructor(private http: HttpClient) { }
 
   findAllPrograms(): Observable<Response<Programs[]>>{
-    return this.http.get<Response<Programs[]>>(this.apiUrl);
+    return this.http.get<Response<Programs[]>>(`${this.apiUrl}/programs`);
   }
 
   findProgramById(ProgramId: string): Observable<Response<Programs[]>> {
-    return this.http.get<Response<Programs[]>>(`${this.apiUrl}/${ProgramId}`)
+    return this.http.get<Response<Programs[]>>(`${this.apiUrl}/programs/${ProgramId}`)
   }
 
   findProgramByName(getPlanByNameRequest: GetPlanByNameRequest): Observable<Response<Programs>> {
-    return this.http.post<Response<Programs>>(`${this.apiUrl}/name`, getPlanByNameRequest)
+    return this.http.post<Response<Programs>>(`${this.apiUrl}/programs/name`, getPlanByNameRequest)
   }
 }

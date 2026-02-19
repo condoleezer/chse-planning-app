@@ -10,27 +10,27 @@ import { CreateServiceRequest } from '../../dtos/request/CreateServiceRequest';
   providedIn: 'root'
 })
 export class ServiceService {
-  apiUrl = environment.apiUrl + '/services';
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
   
   constructor(private http: HttpClient) {}
 
   findAllServices(): Observable<Response<Service[]>> {
-    return this.http.get<Response<Service[]>>(`${this.apiUrl}`);
+    return this.http.get<Response<Service[]>>(`${this.apiUrl}/services`);
   }
 
   findServiceById(serviceId: string): Observable<Response<Service>> {
-    return this.http.get<Response<Service>>(`${this.apiUrl}/${serviceId}`);
+    return this.http.get<Response<Service>>(`${this.apiUrl}/services/${serviceId}`);
   }
 
   createService(createServiceRequest: CreateServiceRequest): Observable<Response<Service>> {
-    return this.http.post<Response<Service>>(`${this.apiUrl}/create`, createServiceRequest);
+    return this.http.post<Response<Service>>(`${this.apiUrl}/services/create`, createServiceRequest);
   }
 
   updateService(serviceId: string, serviceData: CreateServiceRequest): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update/${serviceId}`, serviceData);
+    return this.http.put(`${this.apiUrl}/services/update/${serviceId}`, serviceData);
   }
   
   deleteService(serviceId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${serviceId}`);
+    return this.http.delete(`${this.apiUrl}/services/delete/${serviceId}`);
   }
 }

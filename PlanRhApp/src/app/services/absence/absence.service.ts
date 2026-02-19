@@ -11,28 +11,27 @@ import { Absence } from '../../models/absence';
   providedIn: 'root'
 })
 export class AbsenceService {
-  apiUrl = environment.apiUrl + '/absences';
-
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
   constructor(private http: HttpClient) {}
 
   findAllAbsences(): Observable<Response<Absence[]>> {
-    return this.http.get<Response<Absence[]>>(`${this.apiUrl}`);
+    return this.http.get<Response<Absence[]>>(`${this.apiUrl}/absences`);
   }
 
   findAbsenceById(absenceId: string): Observable<Response<Absence>> {
-    return this.http.get<Response<Absence>>(`${this.apiUrl}/${absenceId}`);
+    return this.http.get<Response<Absence>>(`${this.apiUrl}/absences/${absenceId}`);
   }
 
   createAbsence(createAbsenceRequest: CreateAbsenceRequest): Observable<Response<Absence>> {
-    return this.http.post<Response<Absence>>(`${this.apiUrl}/create`, createAbsenceRequest);
+    return this.http.post<Response<Absence>>(`${this.apiUrl}/absences/create`, createAbsenceRequest);
   }
 
   deleteAbsence(absenceId: string): Observable<unknown> {
-    return this.http.delete(`${this.apiUrl}/delete/${absenceId}`);
+    return this.http.delete(`${this.apiUrl}/absences/delete/${absenceId}`);
   }
 
   assignReplacement(absenceId: string, replacementId: string): Observable<Response<Absence>> {
-    return this.http.post<Response<Absence>>(`${this.apiUrl}/replace/${absenceId}`, { replacement_id: replacementId });
+    return this.http.post<Response<Absence>>(`${this.apiUrl}/absences/replace/${absenceId}`, { replacement_id: replacementId });
   }
 
   /*updateAbsence(absenceId: string, updateData: { status?: string, replacement_id?: string }): Observable<any> {
