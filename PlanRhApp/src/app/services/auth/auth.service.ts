@@ -12,7 +12,7 @@ import { CreateUserRequest } from '../../dtos/request/CreateUserRequest';
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl = environment.apiUrl;
+  private apiUrl = 'https://planrh-backend.onrender.com/api';
   private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
