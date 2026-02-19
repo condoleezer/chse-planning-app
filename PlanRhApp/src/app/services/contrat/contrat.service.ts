@@ -26,7 +26,8 @@ export interface Contrat {
   providedIn: 'root'
 })
 export class ContratService {
- private apiUrl = 'https://planrh-backend.onrender.com/api';
+ private apiUrl = 'https://planrh-backend.onrender.com/api/contrats';
+
   constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
