@@ -44,14 +44,14 @@ export class AbsenceService {
     if (replacementId) {
       updateData.replacement_id = replacementId;
     }
-    return this.http.put(`${this.apiUrl}/update/${absenceId}`, updateData);
+    return this.http.put(`${this.apiUrl}/absences/update/${absenceId}`, updateData);
   }
   
   findAbsencesByReplacementId(replacementId: string): Observable<Response<Absence[]>> {
-    return this.http.get<Response<Absence[]>>(`${this.apiUrl}/replacement/${replacementId}`);
+    return this.http.get<Response<Absence[]>>(`${this.apiUrl}/absences/replacement/${replacementId}`);
   }
   
   findAbsencesByStaffId(staffId: string): Observable<Response<Absence[]>> {
-    return this.http.get<Response<Absence[]>>(`${this.apiUrl}/staff/${staffId}`);
+    return this.http.get<Response<Absence[]>>(`${this.apiUrl}/absences/staff/${staffId}`);
   }
 }
