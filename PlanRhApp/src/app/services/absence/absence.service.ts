@@ -55,3 +55,7 @@ export class AbsenceService {
     return this.http.get<Response<Absence[]>>(`${this.apiUrl}/absences/staff/${staffId}`);
   }
 }
+
+  checkReplacementAvailability(absenceId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/absences/check-availability/${absenceId}`, {});
+  }

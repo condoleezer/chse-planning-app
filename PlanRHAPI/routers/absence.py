@@ -294,3 +294,137 @@ async def set_replacement(absence_id: str, replacement_id: str):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error updating replacement: {str(e)}")
 
+
+
+@router.post("/absences/check-availability/{absence_id}")
+async def check_replacement_availability(absence_id: str):
+    """
+    Vérifie la disponibilité du remplaçant assigné à une absence
+    en consultant son planning annuel
+    """
+    try:
+        from database.database import users, annual_programs
+        from datetime import datetime
+        
+        # Récupérer l'absence
+        absence = absences.find_one({"_id": ObjectId(absence_id)})
+        if not absence:
+            raise HTTPException(status_code=404, detail="Absence non trouvée")
+        
+        # Vérifier qu'un remplaçant est assigné
+        replacement_id = absence.get("replacement_id")
+        if not replacement_id:
+            raise HTTPException(
+                status_code=400, 
+                detail="Aucun remplaçant assigné à cette absence"
+            )
+        
+        # Récupérer le remplaçant
+        replacement = users.find_one({"_id": ObjectId(replacement_id)})
+        if not replacement:
+            raise HTTPException(status_code=404, detail="Remplaçant non trouvé")
+        
+        replacement_name = f"{replacement.get('first_name', '')} {replacement.get('last_name', '')}".strip()
+        
+        # Récupérer le planning annuel du remplaçant
+        planning = annual_programs.find_one({
+            "name": replacement_name,
+            "type": "annual"
+        })
+        
+        if not planning:
+            return {
+                "message": "Planning non trouvé pour ce remplaçant",
+                "available": None,
+                "replacement_name": replacement_name,
+                "details": "Aucun planning disponible pour vérifier la disponibilité"
+            }
+        
+        # Extraire les dates de l'absence
+        start_date = absence.get("start_date")
+        end_date = absence.get("end_date")
+        
+        # Parser les dates
+        try:
+            start = datetime.fromisoformat(start_date.replace('Z', '+00:00'))
+            end = datetime.fromisoformat(end_date.replace('Z', '+00:00'))
+        except:
+            raise HTTPException(
+                status_code=400,
+                detail="Format de date invalide"
+            )
+        
+        # Vérifier la disponibilité pour chaque jour de l'absence
+        unavailable_days = []
+        available_days = []
+        
+        current_date = start
+        while current_date <= end:
+            # Obtenir le mois et le jour
+            month_name = current_date.strftime('%B').lower()
+            # Convertir en français
+            month_mapping = {
+                'january': 'janvier', 'february': 'février', 'march': 'mars',
+                'april': 'avril', 'may': 'mai', 'june': 'juin',
+                'july': 'juillet', 'august': 'août', 'september': 'septembre',
+                'october': 'octobre', 'november': 'novembre', 'december': 'décembre'
+            }
+            month_fr = month_mapping.get(month_name, month_name)
+            day_num = str(current_date.day)
+            
+            # Vérifier dans le planning
+            if month_fr in planning['data']:
+                if day_num in planning['data'][month_fr]:
+                    day_info = planning['data'][month_fr][day_num]
+                    code = day_info.get('code', '')
+                    
+                    # Codes indiquant une indisponibilité
+                    unavailable_codes = ['RC', 'RH', 'CA', 'CM', 'F', 'CP', 'RTT', 'MA']
+                    
+                    if code in unavailable_codes:
+                        unavailable_days.append({
+                            'date': current_date.strftime('%Y-%m-%d'),
+                            'day': day_info.get('day', ''),
+                            'code': code,
+                            'reason': f"Code {code}"
+                        })
+                    else:
+                        available_days.append({
+                            'date': current_date.strftime('%Y-%m-%d'),
+                            'day': day_info.get('day', ''),
+                            'code': code
+                        })
+            
+            # Passer au jour suivant
+            from datetime import timedelta
+            current_date += timedelta(days=1)
+        
+        # Déterminer la disponibilité globale
+        is_available = len(unavailable_days) == 0
+        
+        return {
+            "message": "Vérification de disponibilité effectuée",
+            "available": is_available,
+            "replacement_id": replacement_id,
+            "replacement_name": replacement_name,
+            "absence_period": {
+                "start": start.strftime('%Y-%m-%d'),
+                "end": end.strftime('%Y-%m-%d'),
+                "total_days": len(available_days) + len(unavailable_days)
+            },
+            "availability_details": {
+                "available_days": available_days,
+                "unavailable_days": unavailable_days,
+                "available_count": len(available_days),
+                "unavailable_count": len(unavailable_days)
+            },
+            "recommendation": "Disponible pour remplacement" if is_available else "Non disponible - Conflits détectés dans le planning"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erreur lors de la vérification: {str(e)}"
+        )

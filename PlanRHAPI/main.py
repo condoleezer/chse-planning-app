@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from routers import user, sessions, role, service, absence, program, asks, code, contrat, speciality
+from routers import user, sessions, role, service, absence, program, asks, code, contrat, speciality, planning
 
 app = FastAPI()
 
@@ -34,6 +34,7 @@ app.include_router(service.router, prefix=API_PREFIX)
 app.include_router(contrat.router, prefix=API_PREFIX)
 app.include_router(speciality.router, prefix=API_PREFIX)
 app.include_router(sessions.router, prefix=API_PREFIX)
+app.include_router(planning.router, prefix=API_PREFIX)
 
 @app.get("/")
 async def root():

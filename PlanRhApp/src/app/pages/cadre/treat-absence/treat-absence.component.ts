@@ -222,7 +222,51 @@ export class TreatAbsenceComponent implements OnInit {
   }
 
   checkAvailability(): void {
-    this.showInfo('Vérification de la disponibilité (fonctionnalité à implémenter)');
+    if (!this.absence?.id) {
+      this.showError('Aucune absence sélectionnée');
+      return;
+    }
+
+    if (!this.absence.replacement_id) {
+      this.showError('Aucun remplaçant assigné à cette absence');
+      return;
+    }
+
+    // Appeler l'API pour vérifier la disponibilité
+    this.absenceService.checkReplacementAvailability(this.absence.id).subscribe({
+      next: (response) => {
+        console.log('Availability check response:', response);
+        
+        if (response.available === null) {
+          this.showInfo(`${response.message}: ${response.details}`);
+        } else if (response.available) {
+          // Remplaçant disponible
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Disponible',
+            detail: `${response.replacement_name} est disponible pour la période du ${response.absence_period.start} au ${response.absence_period.end} (${response.absence_period.total_days} jours)`,
+            life: 5000
+          });
+        } else {
+          // Remplaçant non disponible
+          const unavailableDays = response.availability_details.unavailable_days;
+          const conflictDetails = unavailableDays.map((day: any) => 
+            `${day.date}: ${day.code}`
+          ).join(', ');
+          
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Conflits détectés',
+            detail: `${response.replacement_name} a ${unavailableDays.length} jour(s) d'indisponibilité: ${conflictDetails}`,
+            life: 8000
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la vérification:', err);
+        this.showError(err.error?.detail || 'Échec de la vérification de disponibilité');
+      }
+    });
   }
 
   goBack(): void {
