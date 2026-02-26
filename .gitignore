@@ -19,3 +19,11 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+# MongoDB data
+mongo_data/
+PlanRHAPI/database/
+*.wt
+*.turtle
+
+# Excel temporaires
+~$*.xlsx
