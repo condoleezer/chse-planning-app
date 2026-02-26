@@ -1,6 +1,56 @@
 <div class="dashboard-container p-4 md:p-6">
   <h1 class="dashboard-title text-2xl md:text-3xl font-bold mb-6">Calendrier des plannings</h1>
+  
+  <!-- Légende des codes -->
+  <div class="bg-white rounded-3xl p-4 mb-4">
+    <h2 class="text-lg font-semibold mb-3">Légende des codes</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #f59e0b;"></div>
+        <span class="text-sm">RC - Repos compensateur</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #10b981;"></div>
+        <span class="text-sm">RH - Repos hebdomadaire</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #ef4444;"></div>
+        <span class="text-sm">F - Férié</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #8b5cf6;"></div>
+        <span class="text-sm">CA - Congé annuel</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #ec4899;"></div>
+        <span class="text-sm">CM - Congé maladie</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #06b6d4;"></div>
+        <span class="text-sm">CP - Congé payé</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #3b82f6;"></div>
+        <span class="text-sm">J19 - Jour travaillé</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #6366f1;"></div>
+        <span class="text-sm">M - Matin</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #14b8a6;"></div>
+        <span class="text-sm">S - Soir</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 rounded" style="background-color: #64748b;"></div>
+        <span class="text-sm">N - Nuit</span>
+      </div>
+    </div>
+  </div>
+
   <div class="bg-white rounded-3xl p-4 md:p-10">
     <full-calendar [options]="calendarOptions"></full-calendar>
   </div>
+  
+  <p-toast></p-toast>
 </div>

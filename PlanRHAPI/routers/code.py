@@ -78,20 +78,30 @@ async def delete(code_id: str):
 async def get_codes():
     try:
         code_l = code_meanings.find()
-        code_list = [
-            {
-                "id": str(code["_id"]),
-                "name": code["name"],
-                "name_abrege": code["name_abrege"],
-                "regroupement": code["regroupement"],
-                "indicator": code["indicator"],
-                "begin_date": code["begin_date"],
-                "end_date": code["end_date"],
-                "matricule": code.get("matricule", ""),
-                "created_at": code.get("created_at", "").isoformat() if code.get("created_at") else "",
-                "updated_at": code.get("updated_at", "").isoformat() if code.get("updated_at") else ""
-            } for code in code_l
-        ]
+        code_list = []
+        
+        for code in code_l:
+            # Gérer les deux formats de code_meanings
+            if "name" in code and "name_abrege" in code:
+                # Format ancien (codes créés manuellement)
+                code_list.append({
+                    "id": str(code["_id"]),
+                    "name": code["name"],
+                    "name_abrege": code["name_abrege"],
+                    "regroupement": code.get("regroupement", ""),
+                    "indicator": code.get("indicator", ""),
+                    "begin_date": code.get("begin_date", ""),
+                    "end_date": code.get("end_date", ""),
+                    "matricule": code.get("matricule", ""),
+                    "created_at": code.get("created_at", "").isoformat() if code.get("created_at") else "",
+                    "updated_at": code.get("updated_at", "").isoformat() if code.get("updated_at") else ""
+                })
+            else:
+                # Format CHSE (codes importés depuis Excel)
+                # Ces documents ont une structure différente avec des clés comme "horaire", "absence"
+                # On les ignore pour l'instant ou on les transforme
+                pass
+        
         return {"message": "codes récupérés avec succès", "data": code_list}
     except Exception as e:
         raise HTTPException(
