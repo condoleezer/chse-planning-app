@@ -3,14 +3,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { UserService } from '../../../services/user/user.service';
-import { ContratService } from '../../../services/contrat/contrat.service';
-import { ServiceService } from '../../../services/service/service.service';
+import { PlanningService } from '../../../services/planning/planning.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../models/User';
-import { Contrat, WorkDay } from '../../../services/contrat/contrat.service';
-import { Service } from '../../../models/services';
 import { CommonModule } from '@angular/common';
-import { forkJoin } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
@@ -31,37 +27,29 @@ export class CalendarComponent implements OnInit {
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,dayGridWeek'
-    },
-    eventTimeFormat: {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
+      right: 'dayGridMonth'
     }
   };
   loggedInUser: User | null = null;
-  users: User[] = [];
-  userContrats: { [userId: string]: Contrat | null } = {};
-  allServices: Service[] = [];
+  monthlyPlanning: any = null;
 
   constructor(
     private userService: UserService,
-    private contratService: ContratService,
-    private serviceService: ServiceService,
+    private planningService: PlanningService,
     private authService: AuthService,
     private messageService: MessageService
   ) {}
 
   ngOnInit() {
-    this.loadUserAndData();
+    this.loadUserAndPlanning();
   }
 
-  loadUserAndData(): void {
+  loadUserAndPlanning(): void {
     this.authService.getUserInfo().subscribe({
       next: (user: User | null) => {
         if (user?._id) {
           this.loggedInUser = user;
-          this.loadAllData();
+          this.loadPlanning(user._id);
         } else {
           this.showError('Impossible de charger les informations utilisateur');
         }
@@ -72,101 +60,57 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  loadAllData(): void {
-    forkJoin([
-      this.userService.findAllUsers(),
-      this.serviceService.findAllServices()
-    ]).subscribe({
-      next: ([usersResponse, servicesResponse]) => {
-        this.users = usersResponse.data || [];
-        this.allServices = servicesResponse.data || [];
-        this.loadContratsForUsers();
+  loadPlanning(userId: string): void {
+    this.planningService.getUserPlanning(userId).subscribe({
+      next: (response) => {
+        if (response.data && response.data.type === 'monthly') {
+          this.monthlyPlanning = response.data;
+          this.updateCalendarEvents();
+        } else {
+          this.showInfo('Aucun planning mensuel trouvé pour votre profil');
+        }
       },
-      error: () => {
-        this.showError('Échec du chargement des données');
-      }
-    });
-  }
-
-  loadContratsForUsers(): void {
-    if (!this.loggedInUser?.service_id) {
-      this.showError('Service de l\'utilisateur non défini');
-      return;
-    }
-
-    // Filtrer les utilisateurs par service_id
-    const filteredUsers = this.users.filter(
-      user => user.service_id === this.loggedInUser?.service_id
-    );
-
-    if (filteredUsers.length === 0) {
-      this.showInfo('Aucun utilisateur trouvé pour votre service');
-      this.calendarOptions.events = [];
-      return;
-    }
-
-    // Charger les contrats pour les utilisateurs filtrés
-    filteredUsers.forEach(user => {
-      const userId = user.id || user._id;
-      if (userId) {
-        this.contratService.getContratByUserId(userId).subscribe({
-          next: (contrat) => {
-            this.userContrats[userId] = contrat && contrat.data ? contrat.data : null;
-            this.updateCalendarEvents();
-          },
-          error: () => {
-            this.userContrats[userId] = null;
-            this.updateCalendarEvents();
-          }
-        });
+      error: (err) => {
+        console.error('Erreur chargement planning:', err);
+        this.showError('Impossible de charger le planning');
       }
     });
   }
 
   updateCalendarEvents(): void {
+    if (!this.monthlyPlanning || !this.monthlyPlanning.data) {
+      return;
+    }
+
     const events: EventInput[] = [];
-    const currentYear = new Date().getFullYear();
+    const currentYear = this.monthlyPlanning.year || 2026;
+    const monthName = this.monthlyPlanning.month || 'février';
+    const monthIndex = this.getMonthIndex(monthName);
 
-    // Filtrer à nouveau les utilisateurs par service_id pour plus de sécurité
-    const filteredUsers = this.users.filter(
-      user => user.service_id === this.loggedInUser?.service_id
-    );
+    // Parcourir chaque employé dans le planning
+    this.monthlyPlanning.data.forEach((employee: any) => {
+      const employeeName = employee.employee;
+      const days = employee.days;
 
-    filteredUsers.forEach(user => {
-      const userId = user.id || user._id;
-      if (!userId || !this.userContrats[userId]?.work_days) return;
+      // Pour chaque jour travaillé
+      Object.keys(days).forEach(dayNum => {
+        const code = days[dayNum];
+        const dayNumber = parseInt(dayNum);
 
-      const contrat = this.userContrats[userId];
-      contrat?.work_days.forEach((workDay: WorkDay) => {
-        const dayOfWeek = this.getDayOfWeekIndex(workDay.day);
-        if (dayOfWeek === -1) return;
+        if (!isNaN(dayNumber) && dayNumber >= 1 && dayNumber <= 31) {
+          const eventDate = new Date(currentYear, monthIndex, dayNumber);
 
-        // Générer des événements pour chaque semaine de l'année en cours
-        for (let month = 0; month < 12; month++) {
-          const date = new Date(currentYear, month, 1);
-          while (date.getMonth() === month) {
-            if (date.getDay() === dayOfWeek) {
-              const startDate = new Date(date);
-              const [startHours, startMinutes] = workDay.start_time.split(':').map(Number);
-              startDate.setHours(startHours, startMinutes, 0, 0);
-
-              const endDate = new Date(date);
-              const [endHours, endMinutes] = workDay.end_time.split(':').map(Number);
-              endDate.setHours(endHours, endMinutes, 0, 0);
-
-              events.push({
-                title: `${user.first_name} ${user.last_name}`,
-                start: startDate,
-                end: endDate,
-                allDay: false,
-                extendedProps: {
-                  user: `${user.first_name}`,
-                  hours: `${workDay.start_time} - ${workDay.end_time}`
-                }
-              });
+          events.push({
+            title: `${employeeName}: ${code}`,
+            start: eventDate,
+            allDay: true,
+            backgroundColor: this.getCodeColor(code),
+            borderColor: this.getCodeColor(code),
+            extendedProps: {
+              employee: employeeName,
+              code: code
             }
-            date.setDate(date.getDate() + 1);
-          }
+          });
         }
       });
     });
@@ -174,27 +118,40 @@ export class CalendarComponent implements OnInit {
     this.calendarOptions.events = events;
   }
 
-  getDayOfWeekIndex(dayName: string): number {
-    const daysMap: { [key: string]: number } = {
-      'Lundi': 1,
-      'Mardi': 2,
-      'Mercredi': 3,
-      'Jeudi': 4,
-      'Vendredi': 5,
-      'Samedi': 6,
-      'Dimanche': 0
+  getMonthIndex(monthName: string): number {
+    const months: { [key: string]: number } = {
+      'janvier': 0, 'février': 1, 'mars': 2, 'avril': 3,
+      'mai': 4, 'juin': 5, 'juillet': 6, 'août': 7,
+      'septembre': 8, 'octobre': 9, 'novembre': 10, 'décembre': 11
     };
-    return daysMap[dayName] ?? -1;
+    return months[monthName.toLowerCase()] || 1;
+  }
+
+  getCodeColor(code: string): string {
+    // Couleurs selon les codes
+    const colorMap: { [key: string]: string } = {
+      'RC': '#f59e0b', // Repos compensateur - orange
+      'RH': '#10b981', // Repos hebdomadaire - vert
+      'F': '#ef4444',  // Férié - rouge
+      'CA': '#8b5cf6', // Congé annuel - violet
+      'CM': '#ec4899', // Congé maladie - rose
+      'CP': '#06b6d4', // Congé payé - cyan
+      'J19': '#3b82f6', // Jour travaillé - bleu
+      'M': '#6366f1',   // Matin - indigo
+      'S': '#14b8a6',   // Soir - teal
+      'N': '#64748b'    // Nuit - gris
+    };
+    return colorMap[code] || '#6b7280'; // Gris par défaut
   }
 
   customEventContent(arg: any) {
-    const user = arg.event.extendedProps.user;
-    const hours = arg.event.extendedProps.hours;
+    const employee = arg.event.extendedProps.employee;
+    const code = arg.event.extendedProps.code;
 
     return {
       html: `
-        <div style="background-color: #3b82f6 !important; color: #000000 !important; padding: 4px !important; border-radius: 4px !important; font-size: 12px !important; font-weight: bold !important;">
-          ${hours} ${user}
+        <div style="padding: 2px 4px; font-size: 11px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+          ${employee}: ${code}
         </div>
       `
     };
