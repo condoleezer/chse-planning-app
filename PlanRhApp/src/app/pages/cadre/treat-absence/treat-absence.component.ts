@@ -234,7 +234,7 @@ export class TreatAbsenceComponent implements OnInit {
 
     // Appeler l'API pour vérifier la disponibilité
     this.absenceService.checkReplacementAvailability(this.absence.id).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log('Availability check response:', response);
         
         if (response.available === null) {
@@ -262,7 +262,7 @@ export class TreatAbsenceComponent implements OnInit {
           });
         }
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la vérification:', err);
         this.showError(err.error?.detail || 'Échec de la vérification de disponibilité');
       }
