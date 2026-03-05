@@ -81,9 +81,9 @@ async def get_codes():
         code_list = []
         
         for code in code_l:
-            # Gérer les deux formats de code_meanings
+            # Retourner uniquement les codes d'absence (format avec name et name_abrege)
+            # Les codes horaires (format code/meaning) sont pour les plannings uniquement
             if "name" in code and "name_abrege" in code:
-                # Format ancien (codes créés manuellement)
                 created_at = code.get("created_at")
                 updated_at = code.get("updated_at")
                 
@@ -98,21 +98,6 @@ async def get_codes():
                     "matricule": code.get("matricule", ""),
                     "created_at": created_at.isoformat() if created_at and hasattr(created_at, 'isoformat') else "",
                     "updated_at": updated_at.isoformat() if updated_at and hasattr(updated_at, 'isoformat') else ""
-                })
-            elif "code" in code and "meaning" in code:
-                # Format CHSE (codes importés depuis Excel)
-                # Transformer au format attendu par l'application
-                code_list.append({
-                    "id": str(code["_id"]),
-                    "name": code.get("meaning", ""),
-                    "name_abrege": code.get("code", ""),
-                    "regroupement": "",
-                    "indicator": "",
-                    "begin_date": "",
-                    "end_date": "",
-                    "matricule": "",
-                    "created_at": "",
-                    "updated_at": ""
                 })
         
         return {"message": "codes récupérés avec succès", "data": code_list}
