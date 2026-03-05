@@ -40,6 +40,11 @@ app.include_router(planning.router, prefix=API_PREFIX)
 async def root():
     return {"message": "Hello World"}
 
+
+@app.head("/")
+async def head_root():
+    return {}
+
 @app.get("/hello/{name}")
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
