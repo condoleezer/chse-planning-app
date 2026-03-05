@@ -96,11 +96,21 @@ async def get_codes():
                     "created_at": code.get("created_at", "").isoformat() if code.get("created_at") else "",
                     "updated_at": code.get("updated_at", "").isoformat() if code.get("updated_at") else ""
                 })
-            else:
+            elif "code" in code and "meaning" in code:
                 # Format CHSE (codes importés depuis Excel)
-                # Ces documents ont une structure différente avec des clés comme "horaire", "absence"
-                # On les ignore pour l'instant ou on les transforme
-                pass
+                # Transformer au format attendu par l'application
+                code_list.append({
+                    "id": str(code["_id"]),
+                    "name": code.get("meaning", ""),
+                    "name_abrege": code.get("code", ""),
+                    "regroupement": "",
+                    "indicator": "",
+                    "begin_date": "",
+                    "end_date": "",
+                    "matricule": "",
+                    "created_at": "",
+                    "updated_at": ""
+                })
         
         return {"message": "codes récupérés avec succès", "data": code_list}
     except Exception as e:
