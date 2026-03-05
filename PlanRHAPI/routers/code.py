@@ -84,6 +84,9 @@ async def get_codes():
             # Gérer les deux formats de code_meanings
             if "name" in code and "name_abrege" in code:
                 # Format ancien (codes créés manuellement)
+                created_at = code.get("created_at")
+                updated_at = code.get("updated_at")
+                
                 code_list.append({
                     "id": str(code["_id"]),
                     "name": code["name"],
@@ -93,8 +96,8 @@ async def get_codes():
                     "begin_date": code.get("begin_date", ""),
                     "end_date": code.get("end_date", ""),
                     "matricule": code.get("matricule", ""),
-                    "created_at": code.get("created_at", "").isoformat() if code.get("created_at") else "",
-                    "updated_at": code.get("updated_at", "").isoformat() if code.get("updated_at") else ""
+                    "created_at": created_at.isoformat() if created_at and hasattr(created_at, 'isoformat') else "",
+                    "updated_at": updated_at.isoformat() if updated_at and hasattr(updated_at, 'isoformat') else ""
                 })
             elif "code" in code and "meaning" in code:
                 # Format CHSE (codes importés depuis Excel)
