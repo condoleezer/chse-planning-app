@@ -148,10 +148,10 @@ export class AsksComponent implements OnInit {
       this.codeService.findAllCodes()
     ]).subscribe({
       next: ([absencesResponse, usersResponse, servicesResponse, codeResponse]) => {
-        this.allAbsences = absencesResponse.data || [];
-        this.allUsers = usersResponse.data || [];
-        this.allServices = servicesResponse.data || [];
-        this.allCodeAbsences = codeResponse.data || [];
+        this.allAbsences = absencesResponse?.data || [];
+        this.allUsers = usersResponse?.data || [];
+        this.allServices = servicesResponse?.data || [];
+        this.allCodeAbsences = codeResponse?.data || [];
         
         this.loadReceivedRequests();
         this.loadSentRequests();
@@ -159,6 +159,10 @@ export class AsksComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading data:', err);
+        this.allAbsences = [];
+        this.allUsers = [];
+        this.allServices = [];
+        this.allCodeAbsences = [];
         this.showError('Échec du chargement des données');
       }
     });

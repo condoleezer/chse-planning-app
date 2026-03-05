@@ -123,16 +123,20 @@ export class AbsencesComponent implements OnInit {
       this.codeService.findAllCodes()
     ]).subscribe({
       next: ([absencesResponse, usersResponse, servicesResponse, codeResponse]) => {
-        this.allAbsences = absencesResponse.data || [];
-        this.allUsers = usersResponse.data || [];
-        this.allServices = servicesResponse.data || [];
-        this.allCodeAbsences = codeResponse.data || [];
+        this.allAbsences = absencesResponse?.data || [];
+        this.allUsers = usersResponse?.data || [];
+        this.allServices = servicesResponse?.data || [];
+        this.allCodeAbsences = codeResponse?.data || [];
 
         this.loadFilteredAbsences();
         this.loadFilteredAbsences2();
       },
       error: (err) => {
         console.error('Error loading data:', err);
+        this.allAbsences = [];
+        this.allUsers = [];
+        this.allServices = [];
+        this.allCodeAbsences = [];
         this.showError('Échec du chargement des données');
       }
     });
