@@ -58,4 +58,8 @@ export class AbsenceService {
   checkReplacementAvailability(absenceId: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/absences/check-availability/${absenceId}`, {});
   }
+
+  setReplacement(absenceId: string, replacementId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/absences/set-replacement/${absenceId}/${replacementId}`, {});
+  }
 }

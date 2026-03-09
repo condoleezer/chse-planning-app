@@ -1,0 +1,83 @@
+[
+  {
+    "_id": "683d67fc8b013c17b0e679e6",
+    "name": "Absence à qualifier",
+    "name_abrege": "AAQ",
+    "regroupement": "AUTRES",
+    "indicator": "AUTRES",
+    "begin_date": "2023-04-03T22:00:00",
+    "end_date": "2023-04-25T22:00:00",
+    "created_at": "2025-06-02T10:59:40.382000",
+    "updated_at": "2025-06-02T10:59:40.382000",
+    "matricule": "CODE06455U"
+  },
+  {
+    "_id": "683d68518b013c17b0e679e7",
+    "name": "ACTRE",
+    "name_abrege": "ACTRE",
+    "regroupement": "CONGES",
+    "indicator": "AUTRES",
+    "begin_date": "2022-01-02T23:00:00",
+    "end_date": "2022-08-23T22:00:00",
+    "created_at": "2025-06-02T11:01:05.373000",
+    "updated_at": "2025-06-02T11:01:05.373000",
+    "matricule": "CODE25206S"
+  },
+  {
+    "_id": "683d68968b013c17b0e679e8",
+    "name": "Absence injustifiée",
+    "name_abrege": "AI",
+    "regroupement": "AUTRES",
+    "indicator": "AUTRES",
+    "begin_date": "2024-04-22T22:00:00",
+    "end_date": "2024-12-23T23:00:00",
+    "created_at": "2025-06-02T11:02:14.175000",
+    "updated_at": "2025-06-02T11:02:14.175000",
+    "matricule": "CODE30645G"
+  },
+  {
+    "_id": "69a0092b930de2d731165541",
+    "code": "Codes horaire",
+    "meaning": "Codes horaire"
+  },
+  {
+    "_id": "69a0092b930de2d731165542",
+    "code": "Code",
+    "meaning": "Nom"
+  },
+  {
+    "_id": "69a0092b930de2d731165543",
+    "code": "RC",
+    "meaning": "REPOS COMPENSATEUR"
+  },
+  {
+    "_id": "69a0092b930de2d731165544",
+    "code": "RH",
+    "meaning": "REPOS HEBDOMADAIRE"
+  },
+  {
+    "_id": "69a0092b930de2d731165545",
+    "code": "J19",
+    "meaning": "Jour 08h00 - 20h15"
+  },
+  {
+    "_id": "69a0092b930de2d731165546",
+    "code": "J33",
+    "meaning": "Jour 09h00 - 16h30"
+  },
+  {
+    "_id": "69a0092c930de2d731165549",
+    "code": "J12",
+    "meaning": "Jour 08h00 - 15h30"
+  },
+  {
+    "_id": "69a0092c930de2d73116554a",
+    "code": "J36",
+    "meaning": "Jour 09h00 - 18h00"
+  },
+  {
+    "_id": "69a0092c930de2d73116554b",
+    "code": "TP",
+    "meaning": "REPOS TEMPS PARTIEL"
+  }
+]

@@ -40,6 +40,26 @@ export class TreatAbsenceComponent implements OnInit {
   onUserSelect(event: any) {
     console.log('User selected:', event);
     console.log('selectedUser:', this.selectedUser);
+    
+    // Sauvegarder le remplaçant dans la base de données
+    if (this.absence?.id && this.selectedUser) {
+      this.absenceService.setReplacement(this.absence.id, this.selectedUser).subscribe({
+        next: (response) => {
+          console.log('Replacement saved successfully:', response);
+          // Mettre à jour l'objet absence avec le nouveau replacement_id
+          if (this.absence) {
+            this.absence.replacement_id = this.selectedUser;
+            // Recharger les détails pour mettre à jour l'affichage
+            this.loadAbsenceDetails(this.absence.id);
+          }
+          this.showSuccess('Remplaçant assigné avec succès');
+        },
+        error: (err) => {
+          console.error('Erreur lors de l\'assignation du remplaçant:', err);
+          this.showError('Échec de l\'assignation du remplaçant');
+        }
+      });
+    }
   }
 
   enableReplacementChange(): void {
@@ -227,7 +247,8 @@ export class TreatAbsenceComponent implements OnInit {
       return;
     }
 
-    if (!this.absence.replacement_id) {
+    const replacementId = this.selectedUser || this.absence.replacement_id;
+    if (!replacementId) {
       this.showError('Aucun remplaçant assigné à cette absence');
       return;
     }
