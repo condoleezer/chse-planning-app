@@ -36,6 +36,8 @@ export class TreatAbsenceComponent implements OnInit {
   users: City[] = [];
   selectedUser: string | undefined;
   showReplacementDropdown = false;
+  availabilityResult: any = null;
+  showAvailabilityResult = false;
 
   onUserSelect(event: any) {
     console.log('User selected:', event);
@@ -121,17 +123,12 @@ export class TreatAbsenceComponent implements OnInit {
           // Filtrer les utilisateurs selon le contexte
           let filteredUsers = allUsers.filter(user => user.id);
 
-          if (!this.replacement || !this.replacement.id) {
-            // Si pas de remplaçant assigné, ne proposer que les infirmières du même service
-            console.log('No existing replacement, filtering users: infirmières in same service');
-            filteredUsers = filteredUsers.filter(user =>
-              user.role === 'nurse' && user.service_id === this.absence!.service_id
-            );
-            console.log('Filtered users (infirmières same service):', filteredUsers);
-          } else {
-            // Si remplaçant existe, proposer tous les utilisateurs
-            console.log('Existing replacement found, showing all users');
-          }
+          // Toujours proposer que les infirmières du même service
+          console.log('Filtering users: nurses in same service');
+          filteredUsers = filteredUsers.filter(user =>
+            user.role === 'nurse' && user.service_id === this.absence!.service_id
+          );
+          console.log('Filtered users (nurses same service):', filteredUsers);
 
           this.users = filteredUsers.map(user => ({
             name: `${user.first_name} ${user.last_name}`,
@@ -258,31 +255,8 @@ export class TreatAbsenceComponent implements OnInit {
     this.absenceService.checkReplacementAvailability(this.absence.id).subscribe({
       next: (response: any) => {
         console.log('Availability check response:', response);
-        
-        if (response.available === null) {
-          this.showInfo(`${response.message}: ${response.details}`);
-        } else if (response.available) {
-          // Remplaçant disponible
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Disponible',
-            detail: `${response.replacement_name} est disponible pour la période du ${response.absence_period.start} au ${response.absence_period.end} (${response.absence_period.total_days} jours)`,
-            life: 5000
-          });
-        } else {
-          // Remplaçant non disponible
-          const unavailableDays = response.availability_details.unavailable_days;
-          const conflictDetails = unavailableDays.map((day: any) => 
-            `${day.date}: ${day.code}`
-          ).join(', ');
-          
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Conflits détectés',
-            detail: `${response.replacement_name} a ${unavailableDays.length} jour(s) d'indisponibilité: ${conflictDetails}`,
-            life: 8000
-          });
-        }
+        this.availabilityResult = response;
+        this.showAvailabilityResult = true;
       },
       error: (err: any) => {
         console.error('Erreur lors de la vérification:', err);
