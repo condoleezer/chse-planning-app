@@ -43,14 +43,15 @@ export class TreatAbsenceComponent implements OnInit {
     
     // Sauvegarder le remplaçant dans la base de données
     if (this.absence?.id && this.selectedUser) {
-      this.absenceService.setReplacement(this.absence.id, this.selectedUser).subscribe({
+      const absenceId = this.absence.id;
+      this.absenceService.setReplacement(absenceId, this.selectedUser).subscribe({
         next: (response) => {
           console.log('Replacement saved successfully:', response);
           // Mettre à jour l'objet absence avec le nouveau replacement_id
           if (this.absence) {
             this.absence.replacement_id = this.selectedUser;
             // Recharger les détails pour mettre à jour l'affichage
-            this.loadAbsenceDetails(this.absence.id);
+            this.loadAbsenceDetails(absenceId);
           }
           this.showSuccess('Remplaçant assigné avec succès');
         },
