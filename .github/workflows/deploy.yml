@@ -19,8 +19,31 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
+          timeout: 120s
+          command_timeout: 30m
           script: |
+            set -e
+
+            # Premier déploiement : clone si le dossier n'existe pas
+            if [ ! -d "/opt/planrh/.git" ]; then
+              echo "Premier déploiement - clone du repo..."
+              mkdir -p /opt/planrh
+              git clone https://github.com/condoleezer/chse-planning-app.git /opt/planrh
+            fi
+
             cd /opt/planrh
             git pull origin main
+
+            # Vérifie que le .env existe
+            if [ ! -f "PlanRHAPI/.env" ]; then
+              echo "ERREUR : PlanRHAPI/.env manquant !"
+              echo "Crée-le manuellement sur le VPS :"
+              echo "  cp /opt/planrh/PlanRHAPI/.env.example /opt/planrh/PlanRHAPI/.env"
+              echo "  nano /opt/planrh/PlanRHAPI/.env"
+              exit 1
+            fi
+
             docker-compose up -d --build
             docker image prune -f
+            echo "Déploiement terminé ✅"
