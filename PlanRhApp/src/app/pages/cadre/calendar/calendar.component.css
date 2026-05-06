@@ -62,3 +62,12 @@
 .legend-text {
   color: #1f2937 !important;
 }
+
+/* Force les spans de la légende en gris foncé */
+:host ::ng-deep .bg-white span {
+  color: #1f2937 !important;
+}
+
+:host ::ng-deep .bg-white h2 {
+  color: #1f2937 !important;
+}

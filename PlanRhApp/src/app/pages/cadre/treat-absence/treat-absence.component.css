@@ -3,8 +3,8 @@
   color: #000000 !important;
 }
 
-/* Force spans to dark color */
-:host ::ng-deep span {
+/* Force spans to dark color — sauf les badges colorés */
+:host ::ng-deep span:not(.text-green-600):not(.text-red-600):not([class*="p-badge"]):not([class*="p-tag"]) {
   color: #1f2937 !important;
 }
 

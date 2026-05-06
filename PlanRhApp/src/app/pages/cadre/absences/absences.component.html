@@ -55,13 +55,13 @@
                 ></p-badge>
               </td>
               <td class="p-3 border-b">
-                <button
-                  class="flex items-center gap-1 px-3 py-1.5 bg-[#065594] text-white text-xs font-medium rounded-lg hover:bg-blue-800 transition-colors"
-                  (click)="viewDetails(absence.id)"
-                >
-                  <i class="pi pi-eye text-xs"></i>
-                  Traiter
-                </button>
+                <div class="flex w-full gap-2">
+                  <i
+                    class="pi pi-info-circle cursor-pointer text-[#065594] hover:text-blue-800 text-lg"
+                    (click)="viewDetails(absence.id)"
+                    title="Traiter cette absence"
+                  ></i>
+                </div>
               </td>
             </tr>
           </ng-template>
@@ -128,13 +128,13 @@
                 ></p-badge>
               </td>
               <td class="p-3 border-b">
-                <button
-                  class="flex items-center gap-1 px-3 py-1.5 bg-[#065594] text-white text-xs font-medium rounded-lg hover:bg-blue-800 transition-colors"
-                  (click)="viewDetails(absence.id)"
-                >
-                  <i class="pi pi-eye text-xs"></i>
-                  Traiter
-                </button>
+                <div class="flex w-full gap-2">
+                  <i
+                    class="pi pi-info-circle cursor-pointer text-[#065594] hover:text-blue-800 text-lg"
+                    (click)="viewDetails(absence.id)"
+                    title="Traiter cette absence"
+                  ></i>
+                </div>
               </td>
             </tr>
           </ng-template>
