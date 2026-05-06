@@ -1,0 +1,11 @@
+# Force LF pour les scripts shell (sinon ils cassent sur Linux)
+*.sh text eol=lf
+
+# Force LF pour les fichiers de config Linux
+*.conf text eol=lf
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf
+.env.example text eol=lf
+
+# Auto pour le reste
+* text=auto

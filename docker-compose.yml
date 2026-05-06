@@ -1,22 +1,32 @@
 version: "3.8"
 services:
+  mongodb:
+    image: mongo:7.0
+    container_name: planrh_mongodb
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - planrh_net
+    # MongoDB n'est pas exposé à l'extérieur, uniquement accessible en interne
+
   backend:
     build:
       context: ./PlanRHAPI
       dockerfile: Dockerfile
     container_name: planrh_backend
     restart: always
-    ports:
-      - "8000:8000"
     env_file:
       - ./PlanRHAPI/.env
     environment:
       - ENV=production
       - PYTHONPATH=/app
-      - MONGODB_URI=mongodb://host.docker.internal:27017
+      - MONGODB_URI=mongodb://mongodb:27017
       - MONGO_DB=planRH
     networks:
       - planrh_net
+    depends_on:
+      - mongodb
     expose:
       - "8000"
 
@@ -26,12 +36,40 @@ services:
       dockerfile: Dockerfile
     container_name: planrh_frontend
     restart: always
-    ports:
-      - "8080:80"
     networks:
       - planrh_net
     depends_on:
       - backend
+    expose:
+      - "80"
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: planrh_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certbot/conf:/etc/letsencrypt:ro
+      - ./nginx/certbot/www:/var/www/certbot:ro
+    networks:
+      - planrh_net
+    depends_on:
+      - frontend
+      - backend
+
+  certbot:
+    image: certbot/certbot
+    container_name: planrh_certbot
+    volumes:
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  mongo_data:
 
 networks:
   planrh_net:
