@@ -7,7 +7,7 @@
 set -e
 
 DOMAIN="chseplanifrhia.fr"
-EMAIL="ton-email@example.com"   # ← remplace par ton vrai email
+EMAIL="madaveisabelle@gmail.com"
 APP_DIR="/opt/planrh"
 
 echo "=============================="
@@ -16,29 +16,26 @@ echo "=============================="
 
 # Crée les dossiers nécessaires
 mkdir -p "$APP_DIR/nginx/certbot/conf"
-mkdir -p "$APP_DIR/nginx/certbot/www"
+mkdir -p "$APP_DIR/nginx/certbot/www/.well-known/acme-challenge"
 
-# Vérifie que le DNS pointe bien vers ce serveur
-echo "[1/3] Vérification DNS..."
-RESOLVED=$(dig +short "$DOMAIN" | tail -1)
-SERVER_IP=$(curl -s https://api.ipify.org)
-if [ "$RESOLVED" != "$SERVER_IP" ]; then
-    echo "  ATTENTION : $DOMAIN pointe vers $RESOLVED"
-    echo "  mais l'IP de ce serveur est $SERVER_IP"
-    echo "  Attends que le DNS se propage (jusqu'à 24h) avant de continuer."
-    read -p "  Continuer quand même ? (o/N) " confirm
-    [[ "$confirm" != "o" && "$confirm" != "O" ]] && exit 1
-fi
+# Arrête tout ce qui tourne sur le port 80
+echo "[1/3] Libération du port 80..."
+systemctl stop nginx 2>/dev/null || true
+docker stop certbot_nginx_tmp 2>/dev/null || true
+sleep 2
 
-# Lance nginx temporaire pour le challenge ACME
-echo "[2/3] Démarrage Nginx temporaire pour le challenge ACME..."
+# Lance nginx avec le bon montage du dossier webroot
+echo "[2/3] Démarrage Nginx temporaire..."
 docker run --rm -d \
     --name certbot_nginx_tmp \
     -p 80:80 \
-    -v "$APP_DIR/nginx/certbot/www:/var/www/certbot" \
-    nginx:stable-alpine \
-    sh -c 'mkdir -p /var/www/certbot && nginx -g "daemon off;"'
+    -v "$APP_DIR/nginx/certbot/www:/usr/share/nginx/html:ro" \
+    nginx:stable-alpine
 sleep 3
+
+# Test que nginx répond
+echo "  Test nginx..."
+curl -s http://localhost/ > /dev/null && echo "  Nginx OK ✅" || echo "  Nginx ne répond pas ⚠️"
 
 # Obtention du certificat
 echo "[3/3] Obtention du certificat SSL..."
@@ -57,5 +54,5 @@ docker stop certbot_nginx_tmp 2>/dev/null || true
 echo ""
 echo "=============================="
 echo " Certificat SSL obtenu !"
-echo " Lance maintenant : docker-compose up -d --build"
+echo " Lance maintenant : cd /opt/planrh && docker-compose up -d --build"
 echo "=============================="
