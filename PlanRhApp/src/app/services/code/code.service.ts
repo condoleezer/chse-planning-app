@@ -11,7 +11,7 @@ import { CreateCodeRequest } from '../../dtos/request/CreateServiceRequest';
   providedIn: 'root'
 })
 export class CodeService {
-  private apiUrl = 'https://planrh-backend.onrender.com/api';
+  private apiUrl = '/api';
   
   constructor(private http: HttpClient) {}
 

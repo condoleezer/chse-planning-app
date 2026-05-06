@@ -11,7 +11,7 @@ import {AssignServiceRequest} from '../../dtos/request/AssignServiceRequest';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://planrh-backend.onrender.com/api';
+  private apiUrl = '/api';
   constructor(private http: HttpClient) {}
 
   findAllUsers(): Observable<Response<User[]>> {

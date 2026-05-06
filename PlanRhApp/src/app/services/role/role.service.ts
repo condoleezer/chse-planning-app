@@ -10,7 +10,7 @@ import {Response} from "../../dtos/response/Response";
 })
 export class RoleService {
 
-  private apiUrl = 'https://planrh-backend.onrender.com/api';
+  private apiUrl = '/api';
   constructor(private http: HttpClient) { }
 
   findAllRoles(): Observable<Response<Role[]>>{

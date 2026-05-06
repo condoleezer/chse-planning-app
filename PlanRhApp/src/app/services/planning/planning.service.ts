@@ -26,7 +26,7 @@ export interface AllPlanningsResponse {
   providedIn: 'root'
 })
 export class PlanningService {
-  private apiUrl = 'https://planrh-backend.onrender.com/api';
+  private apiUrl = '/api';
 
   constructor(private http: HttpClient) {}
 

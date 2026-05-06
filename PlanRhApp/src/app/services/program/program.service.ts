@@ -11,7 +11,7 @@ import {Programs} from '../../models/programs';
 })
 export class ProgramService {
 
-  private apiUrl = 'https://planrh-backend.onrender.com/api';
+  private apiUrl = '/api';
 
   constructor(private http: HttpClient) { }
 

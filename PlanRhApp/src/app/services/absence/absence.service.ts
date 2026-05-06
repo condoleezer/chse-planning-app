@@ -11,7 +11,7 @@ import { Absence } from '../../models/absence';
   providedIn: 'root'
 })
 export class AbsenceService {
-  private apiUrl = 'https://planrh-backend.onrender.com/api';
+  private apiUrl = '/api';
   constructor(private http: HttpClient) {}
 
   findAllAbsences(): Observable<Response<Absence[]>> {
