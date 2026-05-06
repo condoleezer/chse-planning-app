@@ -18,3 +18,26 @@
     margin-bottom: 0.5rem;
     font-weight: 500;
   }
+
+  /* Force cartes en blanc avec texte sombre */
+  :host ::ng-deep .p-card {
+    background: #ffffff !important;
+    color: #1f2937 !important;
+  }
+
+  :host ::ng-deep .p-card .p-card-title {
+    color: #1f2937 !important;
+  }
+
+  :host ::ng-deep .p-card .p-card-body {
+    color: #1f2937 !important;
+  }
+
+  :host ::ng-deep .p-card p {
+    color: #1f2937 !important;
+  }
+
+  /* Légende calendrier */
+  :host ::ng-deep span {
+    color: #1f2937 !important;
+  }

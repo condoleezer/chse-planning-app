@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"72c149c09b1d45fd8e17f93eefabaeef","collectionName":"annual_programs","type":"collection"}

@@ -3,6 +3,11 @@
   color: #000000 !important;
 }
 
+/* Force spans to dark color */
+:host ::ng-deep span {
+  color: #1f2937 !important;
+}
+
 :host ::ng-deep .p-badge span {
   color: #000000 !important;
 }

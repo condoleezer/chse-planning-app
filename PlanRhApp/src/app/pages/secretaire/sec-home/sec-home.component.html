@@ -59,9 +59,9 @@
            [class.bg-blue-100]="day.isWorking" 
            [class.bg-red-100]="!day.isWorking && !day.isAbsent"
            [class.bg-yellow-100]="day.isAbsent"
-           class="p-2 text-center border rounded">
-        <div class="font-semibold">{{day.date | date:'d'}}</div>
-        <div class="text-xs">
+           class="p-2 text-center border rounded text-gray-800">
+        <div class="font-semibold text-gray-800">{{day.date | date:'d'}}</div>
+        <div class="text-xs text-gray-700">
           {{day.isAbsent ? 'Absent' : (day.isWorking ? 'Travail' : 'Repos')}}
         </div>
       </div>
