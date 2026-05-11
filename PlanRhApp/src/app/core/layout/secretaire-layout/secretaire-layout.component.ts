@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './secretaire-layout.component.css'
 })
 export class SecretaireLayoutComponent implements OnInit {
-  isSec: boolean = false;
+  isSec: boolean = true;
 
   constructor(private authService: AuthService, private router: Router) {}
 

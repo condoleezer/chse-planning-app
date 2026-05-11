@@ -13,7 +13,7 @@ import {CadreSideBarComponent} from '../../../shared/components/cadre-side-bar/c
   styleUrl: './cadre-layout.component.css'
 })
 export class CadreLayoutComponent implements OnInit {
-  isCadre: boolean = false;
+  isCadre: boolean = true;
 
   constructor(private authService: AuthService, private router: Router) {}
 

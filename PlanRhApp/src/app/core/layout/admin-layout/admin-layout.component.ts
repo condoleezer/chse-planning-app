@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./admin-layout.component.css'],
 })
 export class AdminLayoutComponent implements OnInit {
-  isAdmin: boolean = false;
+  isAdmin: boolean = true;
 
   constructor(private authService: AuthService, private router: Router) {}
 
