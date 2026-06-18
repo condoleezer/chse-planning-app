@@ -27,3 +27,19 @@ PlanRHAPI/database/
 
 # Excel temporaires
 ~$*.xlsx
+
+# Environnements locaux
+.venv/
+.claude/
+.vscode/
+
+# Dumps et exports BDD
+mongodb-dump/
+mongodb-export/
+mongodb_export_plannings/
+
+# Passation
+PASSATION.md
+PASSATION.docx
+convert_to_docx.py
+seeds/
